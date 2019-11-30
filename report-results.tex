@@ -1,0 +1,193 @@
+\documentclass[12pt, a4paper, onecolumn]{article}
+\usepackage{graphicx}
+\usepackage{fancyvrb}
+%\usepackage{fancyref, marvosym, textcomp, layout, amsmath, amssymb}
+\usepackage[textwidth={13.5cm}, vmargin={2cm}, nohead, includeheadfoot]{geometry}
+
+\renewcommand{\tablename}{表}
+\renewcommand{\figurename}{圖}
+%\renewcommand{\freffigname}{圖}
+%\renewcommand{\freftabname}{表}
+\title{統計分析結果的報導方式}
+\author{Chen-Pan Liao}
+%\date{2019/11/28}
+
+\usepackage[
+	%	pdfdirection={L2R},
+	bookmarks=true,
+	colorlinks=false,
+	pageanchor=true,
+	linktocpage=true,
+	hyperfootnotes=true,
+	breaklinks=true,
+	%	pdflang={en-US},
+	%	pdfprintscaling={none},
+	pdfdisplaydoctitle=true,
+	bookmarksopen=true,
+	bookmarksopenlevel=2,
+	%	pdftex,
+	%	unicode=true,
+	xetex,
+	bookmarksnumbered=true,
+	pdfstartview={XYZ null null 1},
+	pdfpagelayout={OneColumn},
+	%	pdfpagelayout={TwoColumnRight},
+	pdfpagemode={UseOutlines},
+	%linkcolor=blue, citecolor=blue, filecolor=blue, urlcolor=blue,
+	pdfborder={0 0 1},
+	pdfauthor={Chen-Pan Liao},
+	pdftitle={統計分析結果的報導方式},
+	pdfsubject={統計學},
+	% pdfcreator={LaTeX with pslatex},
+	% pdfkeywords={statistics, R},
+	% pdftrapped={Unknown},
+	pdfinfo={License={CC BY-SA 4.0}}							
+]{hyperref}
+
+%% 西文字配置
+\usepackage{amsmath}
+\usepackage{microtype}
+\linespread{1.2}
+%\usepackage[no-math]{fontspec}
+%\setmainfont[Mapping=tex-text]{TeX Gyre Termes}
+%\usepackage{unicode-math}
+%\setmathfont{TeX Gyre Termes Math}
+%\setsansfont[Mapping=tex-text]{Fira Sans}
+%\setmonofont[Scale=MatchUppercase, LetterSpace=-1, Color=grn]{Sarasa Term CL}%
+
+%% 中文字配置
+\usepackage[
+  CJKmath=true, PunctStyle={quanjiao},
+  CheckSingle=true, 
+  CJKglue = {\hskip0pt plus 3pt minus 0.5pt},
+  CJKecglue = {\hskip3pt plus 8pt minus 0pt}]
+{xeCJK} 
+\setCJKmainfont[Scale=0.96, BoldFont={}]{Noto Serif CJK JP}
+%\setCJKsansfont[Scale=0.97, BoldFont={}]{Sarasa Gothic CL}
+%\setCJKmonofont[Scale=0.97, Color=grn, LetterSpace=-1]{Sarasa Term CL} 
+\newcommand{\nbs}{\hskip3pt plus 1pt minus 0pt}
+
+\usepackage[small, compact]{titlesec}
+\usepackage[marginal, perpage]{footmisc}
+\renewcommand{\contentsname}{目錄}
+
+\begin{document}
+
+\maketitle
+
+\noindent\includegraphics[width=1in]{cc.pdf}\\[2pt]
+本文件全文之著作權屬廖鎮磐 (Chen-Pan Liao) 所有 (聲明日：\today)，並採用姓名標示-相同方式分享 4.0 國際 (CC BY-SA 4.0；詳細內容請見 \url{http://creativecommons.org/licenses/by-sa/4.0/deed.zh_TW})。
+
+\tableofcontents
+
+\section{前言}
+在進行統計分析之後，報導重要的統計結果並正確解讀結果才是負責任的方式。一般而言，在收隻樣本後必須報導描述性統計，包括中央趨勢 (如平均值或中位數) 、樣本數及變異程度 (如標準偏差或標準誤差)；這些敘述性統計若內容太多可以改以圖或表的方式呈現。對於特別感到興趣的參數應計算其信賴區間。進行檢驗後應報導檢定統計量 (如$t$、$f$、$\chi^2$等) 、自由度與p-value，並報導合適的效果量 (如Cohan $d$、$r$、$R^2$等)。關於效果量在課堂中並未多加說明，且不同的效果量適合不同的統計方法，學生可按自己的能力決定是否報導效果量。
+
+以下我將按不同的分析情況示範報導分析結果。我刻意報導較多細節而看來繁鎖，學生可以模仿我的內容以撰寫報告作業，但未來其它課程或學術報告時參考使用即可。最末一併附上計算及繪圖之R code。本文內容將隨課程進度持續增加內容。
+
+
+
+\section{單樣本均值檢驗}
+\subsection{常態情況}
+檢驗 8.8, 10.3, 11.1, 7.7, 10.4, 10.5, 9.4, 9.5, 9.4, 9.1 之中央趨勢是否顯著不同於9。
+
+結果指出，樣本平均$\pm$標準差為$9.62 \pm 0.987$ ($n = 10$)。由Shapiro-Wilk test檢驗常態性發現不能拒絕常態之虚無假設 ($W = 0.960$, $p = 0.790$)，故以one-sample two-tailed Student-t test進行檢驗$H_0: \mu=9$。結果指出，平均值的95\%信賴區間為$\left[8.914, 10.236\right]$，無法拒絕$\mu = 9$的虚無假說 ($t = 1.986$, $\text{DF} = 9$, $p = 0.078$)。此外，Cohan $D = 0.627$顯示中度效果量。結論是，母體平均不顯著不等於9，但由中度效果量推測，不顯著可能是因樣本數不足造成的。
+
+\subsection{非常態情況}
+檢驗 2.5, 0.25, 0.01, 1.74, 0.39, 0.09, 0.82, 0.2, 0.84, 0.76 之中央趨勢是否顯著不同於2。
+
+結果指出，樣本平均$\pm$標準差為$0.76 \pm 0.797$ ($n = 10$)。由Shapiro-Wilk test檢驗常態性發現拒絕常態之虚無假設 ($W = 0.841$, $p = 0.045$)，故以Wilcoxon signed rank sum test進行檢驗$H_0: \text{中位數}=2$。結果指出，應拒絕中位數$=2$的虚無假說 ($\text{樣本中位數}=0.575$，$V = 2$, $p = 0.006$)。此外，多達90\% 的樣本小於2，顯示高度的效果量。結論是，母體中位數顯著不等於2且小於2。\footnote{在雙尾檢驗後若顯著可以藉樣本平均或中位數的大小直接解釋為顯著大於或小於。}
+
+\section{配對兩樣本均值檢驗}
+\subsection{常態情況}
+檢驗以下配對樣本
+\[
+\begin{matrix}
+x_1 & 8.8 & 10.3 & 11.1 & 7.7 & 10.4 & 10.5 & 9.4 & 9.5 \\
+x_2 & 9.2 & 10.4 & 11.6 & 7.7 & 10.6 & 11.6 & 11.4 & 10.4
+\end{matrix}
+\]
+之差值 ($x_1 - x_2$) 中央趨勢是否顯著小於0.1。
+
+結果指出，$x_1$與$x_2$之平均$\pm$標準差分別為$9.71 \pm 1.095$及$10.36 \pm 1.344$ ($n_\mathrm{pair} = 8$； 圖 \ref{fig:normal_paired_test}a)。差值平均$\pm$標準差為$-0.65\pm0.665$  (圖 \ref{fig:normal_paired_test}b)。由Shapiro-Wilk test檢驗差值之常態性發現不能拒絕常態之虚無假設 ($W = 0.883$, $p = 0.202$)，故以two-sample paired t-test檢驗$H_0: \mu_1 - \mu_2 \geq 0.1$。結果指出，應拒絕虚無假設 ($t = -3.188$, $\text{DF} = 7$, $p = 0.015$)。此外，差值平均之95\%信賴區間為$\left[-1.206, -0.0936\right]$，且Cohan $D = 1.728$顯示高度效果量。結論是：差值平均顯著小於0且差距之效果量甚高。
+
+\begin{figure}
+	\centering
+	\includegraphics[]{normal_paired_test.pdf}
+	\caption{配對兩樣本的觀測值盒形圖 (a) 及差值盒形圖 (b)。}
+	\label{fig:normal_paired_test}
+\end{figure}
+
+\subsection{非常態情況}
+檢驗以下配對樣本
+\[
+\begin{matrix}
+x_1 & 5.1 & 6.9 & 7.2 & 6.5 & 7.2 & 6.4 & 5.3 & 7.7 \\
+x_2 & 5.6 & 6.2 & 6.6 & 6.7 & 6.7 & 5.8 & 4.8 & 8.1
+\end{matrix}
+\]
+之差值 ($x_1 - x_2$) 中央趨勢是否顯著偏離1。
+
+結果指出，$x_1$與$x_2$之平均$\pm$標準差分別為$6.538 \pm 0.924$及$6.313 \pm 0.975$ ($n_\mathrm{pair} = 8$；圖 \ref{fig:non-normal_paired_test}a)。差值平均$\pm$標準差為$0.225\pm0.501$ (圖 \ref{fig:non-normal_paired_test}b)。由Shapiro-Wilk test檢驗差值之常態性，結果顯示應拒絕常態之虚無假設 ($W = 0.797$, $p = 0.026$)，故以Wilcoxon signed rank sum test進行檢驗$H_0: \text{差值中位數}=1$。結果顯示，差值中位數顯著不等於1 ($V = 0$, $p = 0.014$) 而是小於1。此外，100\% 的樣本差值小於1，具極高的效果量。結論是，差值母體中位數顯著小於1且效果量高。
+
+\begin{figure}
+	\centering
+	\includegraphics[]{non-normal_paired_test.pdf}
+	\caption{配對兩樣本的觀測值盒形圖 (a) 及差值盒形圖 (b)。}
+	\label{fig:non-normal_paired_test}
+\end{figure}
+
+\section{獨立兩樣本均值檢驗}
+\subsection{常態情況}
+檢驗以下兩獨立樣本
+\[
+\begin{matrix}
+x_1 & 8.6 & 10 & 9.2 & 10.2 & 11.4 & 10.7 & \\
+x_2 & 9.7 & 8.8 & 9.2 & 10.2 & 9.3 & 7.6 & 8.6
+\end{matrix}
+\]
+平均之中央趨勢是否顯著偏離0。
+
+結果指出，$x_1$與$x_2$之平均$\pm$標準差分別為$10.02 \pm 1.095$及$9.057 \pm 0.836$ ($n_1 = 6$，$n_2 = 7$；圖 \ref{fig:normal_independent_test})。由Shapiro-Wilk test檢驗差值之常態性發現二樣本皆不能拒絕常態之虚無假設 ($x_1$，$W = 0.985$, $p = 0.975$；$x_2$，$W = 0.976$, $p = 0.938$)，故以Welch two-Sample t-test檢驗$H_0: \mu_1 - \mu_2 = 0$。結果指出不應拒絕虚無假設 ($t = 1.848$, $\text{DF} = 9.794$, $p = 0.095$)。此外，差值平均之95\%信賴區間為$\left[-0.201, 2.120\right]$，且Cohan $D = 1.044$顯示高度效果量。結論是二樣本平均無顯著差異，但效果量甚高，可能因樣本數不足而發生型二錯誤。
+
+\begin{figure}
+	\centering
+	\includegraphics[]{normal_independent_test.pdf}
+	\caption{獨立兩樣本的觀測值盒形圖。}
+	\label{fig:normal_independent_test}
+\end{figure}
+
+\subsection{非常態情況}
+檢驗以下兩獨立樣本
+\[
+\begin{matrix}
+x_1 & 0 & 0.1 & 0.7 & 0.7 & 0.9 & 0.7 & 0 & 0.9 \\
+x_2 & 0.7 & 1.6 & 0.6 & 0.4 & 1.7 & 0.2 & 1.4 & 
+\end{matrix}
+\]
+平均之中央趨勢是否顯著偏離0。
+
+結果指出，$x_1$與$x_2$之平均$\pm$標準差分別為$0.5 \pm 0.396$及$0.943 \pm 0.611$ ($n_1 = 8$；$n_2=7$；圖 \ref{fig:non-normal_independent_test})。由Shapiro-Wilk test檢驗差值之常態性發現$x_1$拒絕常態之虚無假設 ($W = 0.794$, $p = 0.024$；$x_2$，$W = 0.890$, $p = 0.276$)，故以Mann-Whitney U test檢驗$H_0: \text{Median}_1 - \text{Median}_2 = 0$。結果指出不應拒絕虚無假設 ($W = 18.5$, $p = 0.292$)。此外，Cliff's $d=0.339$顯示中等程度效果量。結論是，二樣本之中位數無顯著差異，但效果量程中度，可能因樣本數不足而發生型二錯誤。
+\begin{figure}
+	\centering
+	\includegraphics[]{non-normal_independent_test.pdf}
+	\caption{獨立兩樣本的觀測值盒形圖。}
+	\label{fig:non-normal_independent_test}
+\end{figure}
+
+\section{多樣本均值檢驗}
+\subsection{常態情況}
+\subsection{非常態情況}
+
+\section{簡單線性迴歸與簡單相關}
+\subsection{常態情況}
+\subsection{非常態情況}
+
+
+\clearpage
+\appendix
+\section{本文中所以使用之R code}
+\fvset{fontsize=\footnotesize, baselinestretch=0.8}
+\VerbatimInput{report-results.R}
+
+\end{document}
