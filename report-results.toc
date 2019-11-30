@@ -10,8 +10,8 @@
 \contentsline {subsection}{\numberline {4.2}非常態情況}{5}{subsection.4.2}%
 \contentsline {section}{\numberline {5}多樣本均值檢驗}{5}{section.5}%
 \contentsline {subsection}{\numberline {5.1}常態情況}{5}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}非常態情況}{5}{subsection.5.2}%
-\contentsline {section}{\numberline {6}簡單線性迴歸與簡單相關}{5}{section.6}%
-\contentsline {subsection}{\numberline {6.1}常態情況}{5}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}非常態情況}{5}{subsection.6.2}%
-\contentsline {section}{\numberline {A}本文中所以使用之R code}{6}{appendix.A}%
+\contentsline {subsection}{\numberline {5.2}非常態情況}{7}{subsection.5.2}%
+\contentsline {section}{\numberline {6}簡單線性迴歸與簡單相關}{7}{section.6}%
+\contentsline {subsection}{\numberline {6.1}常態情況}{7}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}非常態情況}{7}{subsection.6.2}%
+\contentsline {section}{\numberline {A}本文中所以使用之R code}{8}{appendix.A}%

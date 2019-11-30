@@ -1,6 +1,7 @@
 \documentclass[12pt, a4paper, onecolumn]{article}
 \usepackage{graphicx}
 \usepackage{fancyvrb}
+\usepackage{topcapt}
 %\usepackage{fancyref, marvosym, textcomp, layout, amsmath, amssymb}
 \usepackage[textwidth={13.5cm}, vmargin={2cm}, nohead, includeheadfoot]{geometry}
 
@@ -25,8 +26,7 @@
 	pdfdisplaydoctitle=true,
 	bookmarksopen=true,
 	bookmarksopenlevel=2,
-	%	pdftex,
-	%	unicode=true,
+	unicode=true,
 	xetex,
 	bookmarksnumbered=true,
 	pdfstartview={XYZ null null 1},
@@ -146,7 +146,7 @@ x_1 & 8.6 & 10 & 9.2 & 10.2 & 11.4 & 10.7 & \\
 x_2 & 9.7 & 8.8 & 9.2 & 10.2 & 9.3 & 7.6 & 8.6
 \end{matrix}
 \]
-平均之中央趨勢是否顯著偏離0。
+之中央趨勢是否顯著偏離0。
 
 結果指出，$x_1$與$x_2$之平均$\pm$標準差分別為$10.02 \pm 1.095$及$9.057 \pm 0.836$ ($n_1 = 6$，$n_2 = 7$；圖 \ref{fig:normal_independent_test})。由Shapiro-Wilk test檢驗差值之常態性發現二樣本皆不能拒絕常態之虚無假設 ($x_1$，$W = 0.985$, $p = 0.975$；$x_2$，$W = 0.976$, $p = 0.938$)，故以Welch two-Sample t-test檢驗$H_0: \mu_1 - \mu_2 = 0$。結果指出不應拒絕虚無假設 ($t = 1.848$, $\text{DF} = 9.794$, $p = 0.095$)。此外，差值平均之95\%信賴區間為$\left[-0.201, 2.120\right]$，且Cohan $D = 1.044$顯示高度效果量。結論是二樣本平均無顯著差異，但效果量甚高，可能因樣本數不足而發生型二錯誤。
 
@@ -165,7 +165,7 @@ x_1 & 0 & 0.1 & 0.7 & 0.7 & 0.9 & 0.7 & 0 & 0.9 \\
 x_2 & 0.7 & 1.6 & 0.6 & 0.4 & 1.7 & 0.2 & 1.4 & 
 \end{matrix}
 \]
-平均之中央趨勢是否顯著偏離0。
+之中央趨勢是否顯著偏離0。
 
 結果指出，$x_1$與$x_2$之平均$\pm$標準差分別為$0.5 \pm 0.396$及$0.943 \pm 0.611$ ($n_1 = 8$；$n_2=7$；圖 \ref{fig:non-normal_independent_test})。由Shapiro-Wilk test檢驗差值之常態性發現$x_1$拒絕常態之虚無假設 ($W = 0.794$, $p = 0.024$；$x_2$，$W = 0.890$, $p = 0.276$)，故以Mann-Whitney U test檢驗$H_0: \text{Median}_1 - \text{Median}_2 = 0$。結果指出不應拒絕虚無假設 ($W = 18.5$, $p = 0.292$)。此外，Cliff's $d=0.339$顯示中等程度效果量。結論是，二樣本之中位數無顯著差異，但效果量程中度，可能因樣本數不足而發生型二錯誤。
 \begin{figure}
@@ -177,6 +177,55 @@ x_2 & 0.7 & 1.6 & 0.6 & 0.4 & 1.7 & 0.2 & 1.4 &
 
 \section{多樣本均值檢驗}
 \subsection{常態情況}
+檢驗以下三獨立樣本
+\[
+\begin{matrix}
+x_1 & 5.16 & 4.24 & 4.7 & 4.58 & 6.06 & 5.99 &  \\
+x_2 & 4.91 & 5.65 & 5.58 & 5.12 & 4.32 & & \\
+x_3 & 7.65 & 6.64 & 7 & 5.57 & 5.84 & 8.48 & 7.07
+\end{matrix}
+\]
+之中央趨勢是否相等。
+
+三樣本的描述性統計如表 \ref{table:oneway_ANOVA}。由於三組樣本分布並不顯著偏離常態 (Shapiro test，$p_1 = 0.709$，$p_2 = 0.85$，$p_3 = 0.925$)，且變異數不顯著不等 (Bartlett test，$\chi^2 = 0.469$, $\text{DF} = 2$，$p = 0.791$)，故以one-way ANOVA檢驗$H_0:\mu_1 = \mu_2 = \mu_3$。結果顯示，$x$為顯著因子 ($f = 9.297$，$\text{DF} = (2, 15)$, $p = 0.0024$)，且$\eta^2$顯示有55.3\% 的變異量可由$x$因子解釋。接下來以Tukey's range test進行多重比較，結果顯示，$x_1$與$x_3$存在顯著差異，而$x_2$與另二組皆無顯著差異 (表\ref{table:oneway_ANOVA_post}；圖 \ref{fig:oneway_ANOVA})。
+
+\begin{table}
+	\topcaption{獨立三樣本的描述性統計。} 
+	\centering
+	\begin{tabular}{lrrr}
+		\hline
+		Group & Mean & SD & $n$\\ 
+		\hline
+		$x_1$ & 4.94 & 0.77 &   6 \\ 
+		$x_2$ & 5.86 & 0.79 &   5 \\ 
+		$x_3$ & 6.65 & 0.59 &   7 \\ 
+		\hline
+	\end{tabular}
+	\label{table:oneway_ANOVA}
+\end{table}
+
+\begin{table}
+	\topcaption{獨立三樣本的事後多重比較。} 
+	\centering
+	\begin{tabular}{lrrrr}
+		\hline
+		Comparison & $\Delta(\mu)$ & 95\% CI lower & 95\% CI upper & $p_{\mathrm{adj}}$ \\ 
+		\hline
+		$x_2-x_1$ & 0.917 & $-0.200$ & 2.034 & 0.117 \\ 
+		$x_3-x_1$ & 1.704 & 0.677 & 2.730 & 0.002 \\ 
+		$x_3-x_2$ & 0.787 & $-0.293$ & 1.867 & 0.175 \\ 
+		\hline
+	\end{tabular}
+	\label{table:oneway_ANOVA_post}
+\end{table}
+
+\begin{figure}
+	\centering
+	\includegraphics[]{oneway_ANOVA.pdf}
+	\caption{獨立三樣本的觀測值盒形圖。上方字母為多重比較的分群結果；若任二組存在相同字母則表示不存在顯著差異，反則反之。}
+	\label{fig:oneway_ANOVA}
+\end{figure}
+
 \subsection{非常態情況}
 
 \section{簡單線性迴歸與簡單相關}

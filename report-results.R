@@ -2,6 +2,9 @@ library(lsr)
 library(coin)
 library(ggpubr)
 library(data.table)
+library(multcomp)
+library(multcompView)
+library(xtable)
 
 ## normal one-sample test
 set.seed(1234)
@@ -196,7 +199,7 @@ windows(3, 2)
 d.plot <-
   data.table(
     observation = c(x1, x2),
-    group = c(rep("x1", 6), rep("x2", 7))
+    group = c(rep("x1", 8), rep("x2", 7))
   )
 windows(3, 2)
 ggplot(d.plot, aes(group, observation)) +
@@ -205,3 +208,34 @@ ggplot(d.plot, aes(group, observation)) +
   geom_jitter(width = 0.3) +
   theme_pubr(10, border = T)
 ggsave("non-normal_independent_test.pdf")
+
+## oneway ANOVA
+set.seed(364)
+d <-
+  data.table(y = round(c(rep(5, 6), rep(6, 5), rep(7, 7)) + rnorm(18), 2),
+             group = factor(c(rep("x1", 6), rep("x2", 5), rep("x3", 7))))
+tapply(d$y, d$group, shapiro.test)
+bartlett.test(y ~ group, d)
+d[, paste0(y, collapse = " & "), by = group]
+d[, .(Mean = mean(y), SD = sd(y), n = length(y)), by = group] %>%
+  as.data.frame %>%
+  xtable(., digits = 3, auto = T, label = "table:oneway_ANOVA", caption = "獨立三樣本的描述性統計。")
+fit <- aov(y ~ group, d)
+summary(fit)
+TukeyHSD(fit, "group")$group
+TukeyHSD(fit, "group")$group %>% 
+  xtable(digits = 3, auto = T, label = "table:oneway_ANOVA_post", caption = "獨立三樣本的事後多重比較。")
+fit.mult <-
+  TukeyHSD(fit, "group")$group[, "p adj"] %>%
+  multcompLetters %>%
+  .$Letters %>%
+  data.table(group = names(.), rank = .) %>%
+  merge(., d[, .(max.val = max(y)), by = group], by = "group")
+windows(3, 2)
+ggplot(d, aes(group, y)) +
+  geom_boxplot(width = 0.2,
+               outlier.shape = NA) +
+  geom_jitter(width = 0.3) +
+  geom_text(aes(group, max.val + 0.5, label = rank), fit.mult, size = 10*0.352777778) +
+  theme_pubr(10, border = T)
+ggsave("oneway_ANOVA.pdf")
