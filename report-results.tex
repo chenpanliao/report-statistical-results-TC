@@ -46,28 +46,30 @@
 
 %% 西文字配置
 \usepackage{amsmath}
-\usepackage{microtype}
+%\usepackage{microtype}
 \linespread{1.2}
-%\usepackage[no-math]{fontspec}
-%\setmainfont[Mapping=tex-text]{TeX Gyre Termes}
-%\usepackage{unicode-math}
-%\setmathfont{TeX Gyre Termes Math}
+\usepackage[no-math]{fontspec}
+\setmainfont[Mapping=tex-text]{Latin Modern Roman}
+\usepackage{unicode-math}
+\setmathfont{Latin Modern Math}
 %\setsansfont[Mapping=tex-text]{Fira Sans}
-%\setmonofont[Scale=MatchUppercase, LetterSpace=-1, Color=grn]{Sarasa Term CL}%
+\setmonofont[Scale=MatchLowercase]{Sarasa Term CL Light}%
 
 %% 中文字配置
 \usepackage[
-  CJKmath=true, PunctStyle={quanjiao},
-  CheckSingle=true, 
+  CJKmath=true, 
+  PunctStyle={quanjiao},
+%  CheckSingle=true, 
   CJKglue = {\hskip0pt plus 3pt minus 0.5pt},
-  CJKecglue = {\hskip3pt plus 8pt minus 0pt}]
+  CJKecglue = {\hskip3pt plus 8pt minus 0pt},
+  Verb = false]
 {xeCJK} 
-\setCJKmainfont[Scale=0.96, BoldFont={}]{Noto Serif CJK JP}
+\setCJKmainfont[Scale=0.97, BoldFont={}]{Noto Serif CJK JP}
 %\setCJKsansfont[Scale=0.97, BoldFont={}]{Sarasa Gothic CL}
-%\setCJKmonofont[Scale=0.97, Color=grn, LetterSpace=-1]{Sarasa Term CL} 
+\setCJKmonofont[Scale=MatchLowercase]{Sarasa Term CL Light} 
 \newcommand{\nbs}{\hskip3pt plus 1pt minus 0pt}
 
-\usepackage[small, compact]{titlesec}
+%\usepackage[small, compact]{titlesec}
 \usepackage[marginal, perpage]{footmisc}
 \renewcommand{\contentsname}{目錄}
 
@@ -232,11 +234,10 @@ x_3 & 7.65 & 6.64 & 7 & 5.57 & 5.84 & 8.48 & 7.07
 \subsection{常態情況}
 \subsection{非常態情況}
 
-
 \clearpage
 \appendix
-\section{本文中所以使用之R code}
-\fvset{fontsize=\footnotesize, baselinestretch=0.8}
-\VerbatimInput{report-results.R}
-
+\section{R code}
+以下為本文中所有產生資料、進行分析、製作表格與繪圖之R code。
+\VerbatimInput[fontsize=\footnotesize, baselinestretch=0.75, formatcom=\xeCJKVerbAddon, numbers=left, numbersep=2mm, framesep=3mm, frame=leftline]{report-results.R}
+%
 \end{document}

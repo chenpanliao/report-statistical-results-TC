@@ -6,6 +6,7 @@ library(multcomp)
 library(multcompView)
 library(xtable)
 
+
 ## normal one-sample test
 set.seed(1234)
 x <- rnorm(10, 10, 1) %>% round(1)
@@ -16,6 +17,7 @@ shapiro.test(x)
 t.test(x)
 t.test(x, mu = 9)
 cohensD(x, mu = 9)
+
 
 ## non-normal one-sample test
 set.seed(1234)
@@ -88,6 +90,7 @@ ggarrange(
 )
 ggsave("normal_paired_test.pdf")
 
+
 ## non-normal paired test
 set.seed(1212314)
 x1 <- runif(8, 5, 8) %>% round(1)
@@ -156,6 +159,7 @@ ggarrange(
 )
 ggsave("non-normal_paired_test.pdf")
 
+
 ## normal independent two-sample test
 set.seed(124)
 x1 <- rnorm(6, 10, 1) %>% round(1)
@@ -209,6 +213,7 @@ ggplot(d.plot, aes(group, observation)) +
   theme_pubr(10, border = T)
 ggsave("non-normal_independent_test.pdf")
 
+
 ## oneway ANOVA
 set.seed(364)
 d <-
@@ -217,14 +222,27 @@ d <-
 tapply(d$y, d$group, shapiro.test)
 bartlett.test(y ~ group, d)
 d[, paste0(y, collapse = " & "), by = group]
-d[, .(Mean = mean(y), SD = sd(y), n = length(y)), by = group] %>%
+d[, .(Mean = mean(y),
+      SD = sd(y),
+      n = length(y)), by = group] %>%
   as.data.frame %>%
-  xtable(., digits = 3, auto = T, label = "table:oneway_ANOVA", caption = "獨立三樣本的描述性統計。")
+  xtable(
+    .,
+    digits = 3,
+    auto = T,
+    label = "table:oneway_ANOVA",
+    caption = "獨立三樣本的描述性統計。"
+  )
 fit <- aov(y ~ group, d)
 summary(fit)
 TukeyHSD(fit, "group")$group
-TukeyHSD(fit, "group")$group %>% 
-  xtable(digits = 3, auto = T, label = "table:oneway_ANOVA_post", caption = "獨立三樣本的事後多重比較。")
+TukeyHSD(fit, "group")$group %>%
+  xtable(
+    digits = 3,
+    auto = T,
+    label = "table:oneway_ANOVA_post",
+    caption = "獨立三樣本的事後多重比較。"
+  )
 fit.mult <-
   TukeyHSD(fit, "group")$group[, "p adj"] %>%
   multcompLetters %>%
@@ -236,6 +254,8 @@ ggplot(d, aes(group, y)) +
   geom_boxplot(width = 0.2,
                outlier.shape = NA) +
   geom_jitter(width = 0.3) +
-  geom_text(aes(group, max.val + 0.5, label = rank), fit.mult, size = 10*0.352777778) +
+  geom_text(aes(group, max.val + 0.5, label = rank),
+            fit.mult,
+            size = 10 * 0.352777778) +
   theme_pubr(10, border = T)
 ggsave("oneway_ANOVA.pdf")
