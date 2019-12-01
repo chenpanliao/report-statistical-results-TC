@@ -400,14 +400,14 @@ f2 <-
   stat_qq() + 
   stat_qq_line() +
   theme_pubr(10, border = T)
-windows(4, 2.5)
+windows(5, 2.5)
 ggarrange(
   f1,
   f2,
   nrow = 1,
   labels = "auto",
   align = "hv",
-  widths = c(1, 0.6)
+  widths = c(1, 0.8)
 )
 ggsave("simple_regression.pdf")
 
