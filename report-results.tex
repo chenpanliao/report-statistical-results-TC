@@ -5,13 +5,6 @@
 %\usepackage{fancyref, marvosym, textcomp, layout, amsmath, amssymb}
 \usepackage[textwidth={13.5cm}, vmargin={2.5cm}, nohead, includeheadfoot]{geometry}
 
-\usepackage{caption}
-\captionsetup{
-	format=plain,
-	singlelinecheck=true,
-	font={sf}
-}
-
 
 \renewcommand{\contentsname}{目錄}
 \renewcommand{\tablename}{表}
@@ -248,7 +241,7 @@ x_3 & 7.12 & 7.4 & 8.19 & 3.66 & 3.78 & 11.9 & 6.87
 \]
 之中央趨勢是否相等。
 
-三樣本的描述性統計如表 \ref{table:Welch_ANOVA}。由於三組樣本分布並不顯著偏離常態 (Shapiro-Wilk test，$p_1 = 0.158$，$p_2 = 0.593$，$p_3 = 0.388$)，且變異數顯著不相等 (Bartlett test，$\chi^2 = 6.340$, $\text{DF} = 2$，$p = 0.042$)，故以Welch one-way ANOVA檢驗$H_0:\mu_1 = \mu_2 = \mu_3$。結果顯示，$x$為顯著因子 ($f = 8.248$，$\text{DF} = (2, 8.953)$, $p = 0.009$)，且$\eta^2$顯示有34.77\% 的變異量可由$x$因子解釋。接下來以Games-Howell method進行多重比較，結果顯示，$x_1$與$x_3$存在顯著差異，而$x_2$與另二組皆無顯著差異 (表 \ref{table:Welch_ANOVA_post}；圖 \ref{fig:oneway_ANOVA})。
+三樣本的描述性統計如表 \ref{table:Welch_ANOVA}。由於三組樣本分布並不顯著偏離常態 (Shapiro-Wilk test，$p_1 = 0.158$，$p_2 = 0.593$，$p_3 = 0.388$)，且變異數顯著不相等 (Bartlett test，$\chi^2 = 6.340$, $\text{DF} = 2$，$p = 0.042$)，故以Welch one-way ANOVA檢驗$H_0:\mu_1 = \mu_2 = \mu_3$。結果顯示，$x$為顯著因子 ($f = 8.248$，$\text{DF} = (2, 8.953)$, $p = 0.009$)，且$\eta^2$顯示有34.77\% 的變異量可由$x$因子解釋。接下來以Games-Howell method進行多重比較，結果顯示，$x_1$與$x_3$存在顯著差異，而$x_2$與另二組皆無顯著差異 (表 \ref{table:Welch_ANOVA_post}；圖 \ref{fig:Welch_ANOVA})。
 
 \begin{table}
 	\topcaption{獨立三樣本的描述性統計。} 
@@ -299,11 +292,12 @@ y & 17 & 19.7 & 21.7 & 14.4 & 20 & 21.1 & 19.8 & 18.9
 \]
 中，$y$為應變數，$x$為自變數，建立$y = \beta_0 + \beta_1 x + \varepsilon$的簡單線性迴歸。
 
-簡單線性迴歸之結果如表 \ref{table:simple_regression} 及圖 \ref{fig:simple_regression}a。結果顯示，每$x$增加1單位使$y$平均顯著增加2.069單位，應拒絕$H_0: \beta_1 = 0$ (\ref{table:simple_regression}a)。就效果量而言，自變數可解釋$R^2 = 92.4\%$之變異量，屬高效果量。就迴歸診斷而言，殘差之Q-Q圖 (\ref{fig:simple_regression}b) 顯示殘差呈輕微右偏態，Shapiro-Wilk test顯示殘差並未顯著偏離常態分布 ($W = 0.848$，$p=0.090$)，模型配適尚可。結論是，自變數顯著地增加應變數且效果明顯。
+簡單線性迴歸之結果如表 \ref{table:simple_regression} 及圖 \ref{fig:simple_regression}a。結果顯示，每$x$增加1單位使$y$平均顯著增加2.069單位，應拒絕$H_0: \beta_1 = 0$ (表 \ref{table:simple_regression}a)。就效果量而言，自變數可解釋$R^2 = 92.4\%$之變異量，屬高效果量。就迴歸診斷而言，殘差之Q-Q圖 (圖 \ref{fig:simple_regression}b) 顯示殘差呈輕微右偏態，Shapiro-Wilk test顯示殘差並未顯著偏離常態分布 ($W = 0.848$，$p=0.090$)，模型配適尚可。結論是，自變數顯著地增加應變數且效果明顯。
 
 \begin{table}[ht]
 	\topcaption{簡單線性迴歸之結果。} 
 	\centering
+	\small
 	\begin{tabular}{rrrrr}
 		\hline
 		Variable & Estimate $\pm$ Std.~Error & $t$ (DF = 6) & $p$ & 95\% CI \\ 
@@ -334,7 +328,7 @@ x_2 & 17 & 19.7 & 21.7 & 14.4 & 20 & 21.1 & 19.8 & 18.9
 \]
 中，分析二變數之間的相關性。
 
-首先以Shapiro-Wilk multivariate normality test檢驗$x_1$與$x_2$是否偏離雙變量常態分布，結果顯示不能拒絕$H_0: x_1與x_2之母體聯合分配為常態$ ($W = 0.860$，$p = 0.120$)，故可計算Pearson correlation。結果指出，$r = 0.960$屬高度正相關且應拒絕$H_0:\rho=0$ (95\% CI = $\left[ 0.789, 0.993\right]$, $t = 8.389$，$\text{DF} = 6$，$p < 0.001$)。結論是，$x_1$與$x_2$間存在顯著的高度正向線性相關性。
+首先以Shapiro-Wilk multivariate normality test檢驗$x_1$與$x_2$是否偏離雙變量常態分布，結果顯示不能拒絕$H_0: x_1與x_2之母體聯合分配為常態$ ($W = 0.860$，$p = 0.120$)，故可計算Pearson correlation。結果指出，$r = 0.960$屬高度正相關且應拒絕$H_0:\rho=0$ (95\% CI = $\left[ 0.789, 0.993\right]$, $t = 8.389$，$\text{DF} = 6$，$p < 0.001$；圖 \ref{fig:simple_cor})。結論是，$x_1$與$x_2$間存在顯著的高度正向線性相關性。
 
 \begin{figure}
 	\centering
