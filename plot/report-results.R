@@ -8,7 +8,8 @@ library(xtable)
 library(userfriendlyscience)
 library(mvnormtest)
 library(car)
-
+library(FSA)
+library(rstatix)
 
 ## normal one-sample test
 set.seed(1234)
@@ -83,7 +84,7 @@ f2 <-
   ) +
   ylab("difference\n(x1 - x2)") +
   xlim(c(-0.15, 0.15))
-windows(5, 3)
+windows(4, 2.5)
 ggarrange(
   f1,
   f2,
@@ -152,7 +153,7 @@ f2 <-
   ) +
   ylab("difference\n(x1 - x2)") +
   xlim(c(-0.15, 0.15))
-windows(5, 3)
+windows(4, 2.5)
 ggarrange(
   f1,
   f2,
@@ -183,7 +184,7 @@ d.plot <-
     observation = c(x1, x2),
     group = c(rep("x1", 6), rep("x2", 7))
   )
-windows(5, 3)
+windows(4, 2.5)
 ggplot(d.plot, aes(group, observation)) +
   geom_boxplot(width = 0.2,
                outlier.shape = NA) +
@@ -204,13 +205,13 @@ mean(x1)
 sd(x1)
 mean(x2)
 sd(x2)
-windows(5, 3)
+windows(4, 2.5)
 d.plot <-
   data.table(
     observation = c(x1, x2),
     group = c(rep("x1", 8), rep("x2", 7))
   )
-windows(5, 3)
+windows(4, 2.5)
 ggplot(d.plot, aes(group, observation)) +
   geom_boxplot(width = 0.2,
                outlier.shape = NA) +
@@ -254,7 +255,7 @@ fit.mult <-
   .$Letters %>%
   data.table(group = names(.), rank = .) %>%
   merge(., d[, .(max.val = max(y)), by = group], by = "group")
-windows(5, 3)
+windows(4, 2.5)
 ggplot(d, aes(group, y)) +
   geom_boxplot(width = 0.2,
                outlier.shape = NA) +
@@ -306,7 +307,7 @@ fit.mult <-
   .$Letters %>%
   data.table(group = names(.), rank = .) %>%
   merge(., d[, .(max.val = max(y)), by = group], by = "group")
-windows(5, 3)
+windows(4, 2.5)
 ggplot(d, aes(group, y)) +
   geom_boxplot(width = 0.2,
                outlier.shape = NA) +
@@ -316,6 +317,50 @@ ggplot(d, aes(group, y)) +
             size = 10 * 0.352777778) +
   theme_pubr(10, border = T)
 ggsave("Welch_ANOVA.pdf")
+
+
+## Kruskal-Wallis Rank Sum Test
+set.seed(1132234)
+d <-
+  data.table(y = c(rexp(8, 0.2), rexp(7, 0.5), rexp(6, 1)) %>% round(1),
+             group = c(rep("x1", 8), rep("x2", 7), rep("x3", 6)))
+d[, shapiro.test(y), by = group]
+d[, paste0(y, collapse = " & "), by = group]
+d[, .(Mean = mean(y),
+      SD = sd(y),
+      n = length(y)), by = group] %>%
+  as.data.frame %>%
+  xtable(
+    .,
+    digits = 3,
+    auto = T,
+    label = "table:rank_oneway",
+    caption = "獨立三樣本的描述性統計。"
+  )
+kruskal.test(y ~ group, d)
+kruskal_effsize(d, y ~ group)
+dunnTest(y ~ group, d)
+dunnTest(y ~ group, d)$res %>%
+  xtable(caption = "Dunn's Kruskal-Wallis多重比較之結果。",
+         label = "table:rank_oneway_post",
+         digits = 3)
+fit.mult <-
+  dunnTest(y ~ group, d)$res[, "P.adj"] %>%
+  set_names(dunnTest(y ~ group, d)$res[, "Comparison"] %>% gsub(" ", "", .)) %>%
+  multcompLetters %>%
+  .$Letters %>%
+  data.table(group = names(.), rank = .) %>%
+  merge(., d[, .(max.val = max(y)), by = group], by = "group")
+windows(4, 2.5)
+ggplot(d, aes(group, y)) +
+  geom_boxplot(width = 0.2,
+               outlier.shape = NA) +
+  geom_jitter(width = 0.3) +
+  geom_text(aes(group, max.val + 1, label = rank),
+            fit.mult,
+            size = 10 * 0.352777778) +
+  theme_pubr(10, border = T)
+ggsave("rank_oneway.pdf")
 
 
 ## simple linear regression
@@ -336,7 +381,7 @@ fit %>% {
   )
 } %>%
   xtable(caption = "簡單線性迴歸之結果。",
-         label = "simple_regression",
+         label = "table:simple_regression",
          digits = 3)
 f1 <-
   ggplot(d, aes(x, y)) +
@@ -344,7 +389,7 @@ f1 <-
   geom_point() +
   annotate(
     "text",
-    label = "y = -1.016 = 2.069x,\nR^2 = 0.921",
+    label = "y = -1.016 + 2.069x,\nR^2 = 0.921",
     x = 9,
     y = 22,
     size = 10 * 0.352777778
@@ -355,14 +400,14 @@ f2 <-
   stat_qq() + 
   stat_qq_line() +
   theme_pubr(10, border = T)
-windows(5, 6)
+windows(4, 2.5)
 ggarrange(
   f1,
   f2,
-  nrow = 2,
+  nrow = 1,
   labels = "auto",
   align = "hv",
-  widths = c(1, 1)
+  widths = c(1, 0.6)
 )
 ggsave("simple_regression.pdf")
 
@@ -377,7 +422,7 @@ d[, paste0(x2, collapse = " & ")]
 mshapiro.test(d %>% as.matrix %>% t)
 cor.test(d$x1, d$x2)
 fit <- lm(x2 ~ x1, d)
-windows(5, 3)
+windows(4, 2.5)
 ggplot(d, aes(x1, x2)) +
   geom_path(data =
               dataEllipse(
@@ -410,7 +455,7 @@ mshapiro.test(d %>% as.matrix %>% t)
 d[, paste0(x1, collapse = " & ")]
 d[, paste0(x2, collapse = " & ")]
 cor.test(d$x1, d$x2, method = "spearman")
-windows(5, 3)
+windows(4, 2.5)
 ggplot(d, aes(x1, x2)) +
   geom_point() +
   annotate(

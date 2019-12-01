@@ -282,7 +282,54 @@ x_3 & 7.12 & 7.4 & 8.19 & 3.66 & 3.78 & 11.9 & 6.87
 \end{figure}
 
 \subsection{非常態情況}
-(待撰)
+檢驗以下三獨立樣本
+\[
+\begin{matrix}
+x_1 & 11.2 & 0.5 & 4.5 & 2.8 & 16.5 & 2.2 & 2.1 & 2  \\
+x_2 & 2.8 & 1.8 & 1.7 & 3.6 & 3.5 & 1.4 & 0.5 & \\
+x_3 & 0.5 & 2 & 0.8 & 0.3 & 0.4 & 0.4 & &
+\end{matrix}
+\]
+之中央趨勢是否相等。
+
+三樣本的描述性統計如表 \ref{table:rank_oneway}。由於$x_1$與$x_3$分布顯著偏離常態 (Shapiro-Wilk test，$p_1 = 0.014$，$p_2 = 0.577$，$p_3 = 0.008$)，故以Kruskal-Wallis rank sum test檢驗$H_0:\text{中位數}_1 = \text{中位數}_2 = \text{中位數}_3$。結果顯示，$x$為顯著因子 ($\chi^2 = 9.041$，$\text{DF} = 2$, $p = 0.011$)，且$\eta^2 = 0.391$顯示高度效果量。Dunn's Kruskal-Wallis multiple comparisons之多重比較結果顯示，$x_1$與$x_3$存在顯著差異，而$x_2$與另二組皆無顯著差異 (表 \ref{table:rank_oneway_post}；圖 \ref{fig:rank_oneway})。
+
+\begin{table}[ht!]
+	\topcaption{獨立三樣本的描述性統計。} 
+	\centering
+	\begin{tabular}{llrrr}
+		\hline
+		group & Mean & SD & n \\ 
+		\hline
+		& $x_1$ & 5.225 & 5.617 &    8 \\ 
+		& $x_2$ & 2.186 & 1.151 &    7 \\ 
+		& $x_3$ & 0.733 & 0.644 &    6 \\ 
+		\hline
+	\end{tabular}
+	\label{table:rank_oneway}
+\end{table}
+
+\begin{table}[ht!]
+	\topcaption{Dunn's Kruskal-Wallis多重比較之結果。} 
+	\centering
+	\begin{tabular}{lrr}
+		\hline
+		Comparison & $z$ & $p_{\mathrm{adj}}$ \\ 
+		\hline
+		$x_1 - x_2$ & 0.964 & 0.335 \\ 
+		$x_1 - x_3$ & 2.979 & 0.009 \\ 
+		$x_2 - x_3$ & 1.994 & 0.092 \\ 
+		\hline
+	\end{tabular}
+	\label{table:rank_oneway_post}
+\end{table}
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[]{rank_oneway.pdf}
+	\caption{獨立三樣本的觀測值盒形圖。上方字母為多重比較的分群結果；若任二組存在相同字母則表示不存在顯著差異，反則反之。}
+	\label{fig:rank_oneway}
+\end{figure}
 
 \section{多樣本雙因子均值檢驗}
 (待撰)
