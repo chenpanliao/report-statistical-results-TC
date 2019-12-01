@@ -83,7 +83,7 @@ f2 <-
   ) +
   ylab("difference\n(x1 - x2)") +
   xlim(c(-0.15, 0.15))
-windows(3, 2)
+windows(5, 3)
 ggarrange(
   f1,
   f2,
@@ -152,7 +152,7 @@ f2 <-
   ) +
   ylab("difference\n(x1 - x2)") +
   xlim(c(-0.15, 0.15))
-windows(3, 2)
+windows(5, 3)
 ggarrange(
   f1,
   f2,
@@ -183,7 +183,7 @@ d.plot <-
     observation = c(x1, x2),
     group = c(rep("x1", 6), rep("x2", 7))
   )
-windows(3, 2)
+windows(5, 3)
 ggplot(d.plot, aes(group, observation)) +
   geom_boxplot(width = 0.2,
                outlier.shape = NA) +
@@ -204,13 +204,13 @@ mean(x1)
 sd(x1)
 mean(x2)
 sd(x2)
-windows(3, 2)
+windows(5, 3)
 d.plot <-
   data.table(
     observation = c(x1, x2),
     group = c(rep("x1", 8), rep("x2", 7))
   )
-windows(3, 2)
+windows(5, 3)
 ggplot(d.plot, aes(group, observation)) +
   geom_boxplot(width = 0.2,
                outlier.shape = NA) +
@@ -254,7 +254,7 @@ fit.mult <-
   .$Letters %>%
   data.table(group = names(.), rank = .) %>%
   merge(., d[, .(max.val = max(y)), by = group], by = "group")
-windows(3, 2)
+windows(5, 3)
 ggplot(d, aes(group, y)) +
   geom_boxplot(width = 0.2,
                outlier.shape = NA) +
@@ -306,7 +306,7 @@ fit.mult <-
   .$Letters %>%
   data.table(group = names(.), rank = .) %>%
   merge(., d[, .(max.val = max(y)), by = group], by = "group")
-windows(3, 2)
+windows(5, 3)
 ggplot(d, aes(group, y)) +
   geom_boxplot(width = 0.2,
                outlier.shape = NA) +
@@ -335,19 +335,27 @@ fit %>% {
     confint(.)
   )
 } %>%
-  xtable(caption = "簡單線性迴歸之結果。", label = "simple_regression", digits = 3)
+  xtable(caption = "簡單線性迴歸之結果。",
+         label = "simple_regression",
+         digits = 3)
 f1 <-
   ggplot(d, aes(x, y)) +
   geom_smooth(method = "lm", color = 1, fill = "#aaaaaa") +
   geom_point() +
-  annotate("text", label = "y = -1.016 = 2.069x,\nR^2 = 0.921", x = 9, y = 22, size = 10 * 0.352777778) +
+  annotate(
+    "text",
+    label = "y = -1.016 = 2.069x,\nR^2 = 0.921",
+    x = 9,
+    y = 22,
+    size = 10 * 0.352777778
+  ) +
   theme_pubr(10, border = T)
 f2 <-
   ggplot(d, aes(sample = fit$residuals)) +
   stat_qq() + 
   stat_qq_line() +
   theme_pubr(10, border = T)
-windows(3, 4)
+windows(5, 6)
 ggarrange(
   f1,
   f2,
@@ -369,7 +377,7 @@ d[, paste0(x2, collapse = " & ")]
 mshapiro.test(d %>% as.matrix %>% t)
 cor.test(d$x1, d$x2)
 fit <- lm(x2 ~ x1, d)
-windows(3, 2)
+windows(5, 3)
 ggplot(d, aes(x1, x2)) +
   geom_path(data =
               dataEllipse(
@@ -402,7 +410,7 @@ mshapiro.test(d %>% as.matrix %>% t)
 d[, paste0(x1, collapse = " & ")]
 d[, paste0(x2, collapse = " & ")]
 cor.test(d$x1, d$x2, method = "spearman")
-windows(3, 2)
+windows(5, 3)
 ggplot(d, aes(x1, x2)) +
   geom_point() +
   annotate(

@@ -49,7 +49,7 @@
 %% 西文字配置
 \usepackage{amsmath}
 %\usepackage{microtype}
-\linespread{1.3}
+\linespread{1.2}
 \usepackage[no-math]{fontspec}
 \setmainfont[Mapping=tex-text]{Latin Modern Roman}
 \setsansfont[Mapping=tex-text]{Latin Modern Sans}
@@ -66,13 +66,13 @@
   CJKecglue = {\hskip3pt plus 8pt minus 0pt},
   Verb = false]
 {xeCJK} 
-\setCJKmainfont[Scale=0.97, BoldFont={Noto Serif CJK JP SemiBold}]{Noto Serif CJK JP Light}
+\setCJKmainfont[Scale=0.97, BoldFont={Noto Serif CJK JP Bold}]{Noto Serif CJK JP}
 \setCJKsansfont[Scale=0.97, BoldFont={}]{Sarasa Gothic CL}
 \setCJKmonofont[Scale=MatchLowercase]{Sarasa Term CL Light} 
 \newcommand{\nbs}{\hskip3pt plus 1pt minus 0pt}
 
 %\usepackage[small, compact]{titlesec}
-\usepackage[marginal, perpage]{footmisc}
+%\usepackage[marginal, perpage]{footmisc}
 
 
 \begin{document}
@@ -107,7 +107,7 @@
 檢驗以下配對樣本
 \[
 \begin{matrix}
-x_1 & 8.8 & 10.3 & 11.1 & 7.7 & 10.4 & 10.5 & 9.4 & 9.5 \\
+x_1 & 8.8 & 10.3 & 11.1 & 7.7 &10.4 & 10.5 & 9.4 & 9.5 \\
 x_2 & 9.2 & 10.4 & 11.6 & 7.7 & 10.6 & 11.6 & 11.4 & 10.4
 \end{matrix}
 \]
@@ -115,7 +115,7 @@ x_2 & 9.2 & 10.4 & 11.6 & 7.7 & 10.6 & 11.6 & 11.4 & 10.4
 
 結果指出，$x_1$與$x_2$之平均$\pm$標準差分別為$9.71 \pm 1.095$及$10.36 \pm 1.344$ ($n_\mathrm{pair} = 8$； 圖 \ref{fig:normal_paired_test}a)。差值平均$\pm$標準差為$-0.65\pm0.665$  (圖 \ref{fig:normal_paired_test}b)。由Shapiro-Wilk test檢驗差值之常態性發現不能拒絕常態之虚無假設 ($W = 0.883$, $p = 0.202$)，故以two-sample paired t-test檢驗$H_0: \mu_1 - \mu_2 \geq 0.1$。結果指出，應拒絕虚無假設 ($t = -3.188$, $\text{DF} = 7$, $p = 0.015$)。此外，差值平均之95\%信賴區間為$\left[-1.206, -0.0936\right]$，且Cohan $D = 1.728$顯示高度效果量。結論是：差值平均顯著小於0且差距之效果量甚高。
 
-\begin{figure}
+\begin{figure}[ht!]
 	\centering
 	\includegraphics[]{normal_paired_test.pdf}
 	\caption{配對兩樣本的觀測值盒形圖 (a) 及差值盒形圖 (b)。}
@@ -134,7 +134,7 @@ x_2 & 5.6 & 6.2 & 6.6 & 6.7 & 6.7 & 5.8 & 4.8 & 8.1
 
 結果指出，$x_1$與$x_2$之平均$\pm$標準差分別為$6.538 \pm 0.924$及$6.313 \pm 0.975$ ($n_\mathrm{pair} = 8$；圖 \ref{fig:non-normal_paired_test}a)。差值平均$\pm$標準差為$0.225\pm0.501$ (圖 \ref{fig:non-normal_paired_test}b)。由Shapiro-Wilk test檢驗差值之常態性，結果顯示應拒絕常態之虚無假設 ($W = 0.797$, $p = 0.026$)，故以Wilcoxon signed rank sum test進行檢驗$H_0: \text{差值中位數}=1$。結果顯示，差值中位數顯著不等於1 ($V = 0$, $p = 0.014$) 而是小於1。此外，100\% 的樣本差值小於1，具極高的效果量。結論是，差值母體中位數顯著小於1且效果量高。
 
-\begin{figure}
+\begin{figure}[ht!]
 	\centering
 	\includegraphics[]{non-normal_paired_test.pdf}
 	\caption{配對兩樣本的觀測值盒形圖 (a) 及差值盒形圖 (b)。}
@@ -154,7 +154,7 @@ x_2 & 9.7 & 8.8 & 9.2 & 10.2 & 9.3 & 7.6 & 8.6
 
 結果指出，$x_1$與$x_2$之平均$\pm$標準差分別為$10.02 \pm 1.095$及$9.057 \pm 0.836$ ($n_1 = 6$，$n_2 = 7$；圖 \ref{fig:normal_independent_test})。由Shapiro-Wilk test檢驗差值之常態性發現二樣本皆不能拒絕常態之虚無假設 ($x_1$，$W = 0.985$, $p = 0.975$；$x_2$，$W = 0.976$, $p = 0.938$)，故以Welch two-Sample t-test檢驗$H_0: \mu_1 - \mu_2 = 0$。結果指出不應拒絕虚無假設 ($t = 1.848$, $\text{DF} = 9.794$, $p = 0.095$)。此外，差值平均之95\%信賴區間為$\left[-0.201, 2.120\right]$，且Cohan $D = 1.044$顯示高度效果量。結論是二樣本平均無顯著差異，但效果量甚高，可能因樣本數不足而發生型二錯誤。
 
-\begin{figure}
+\begin{figure}[ht!]
 	\centering
 	\includegraphics[]{normal_independent_test.pdf}
 	\caption{獨立兩樣本的觀測值盒形圖。}
@@ -172,7 +172,7 @@ x_2 & 0.7 & 1.6 & 0.6 & 0.4 & 1.7 & 0.2 & 1.4 &
 之中央趨勢是否顯著偏離0。
 
 結果指出，$x_1$與$x_2$之平均$\pm$標準差分別為$0.5 \pm 0.396$及$0.943 \pm 0.611$ ($n_1 = 8$；$n_2=7$；圖 \ref{fig:non-normal_independent_test})。由Shapiro-Wilk test檢驗差值之常態性發現$x_1$拒絕常態之虚無假設 ($x_1$，$W = 0.794$, $p = 0.024$；$x_2$，$W = 0.890$, $p = 0.276$)，故以Mann-Whitney U test檢驗$H_0: \text{Median}_1 - \text{Median}_2 = 0$。結果指出不應拒絕虚無假設 ($W = 18.5$, $p = 0.292$)。此外，Cliff's $d=0.339$顯示中等程度效果量。結論是，二樣本之中位數無顯著差異，但效果量程中度，可能因樣本數不足而發生型二錯誤。
-\begin{figure}
+\begin{figure}[ht!]
 	\centering
 	\includegraphics[]{non-normal_independent_test.pdf}
 	\caption{獨立兩樣本的觀測值盒形圖。}
@@ -193,7 +193,7 @@ x_3 & 7.65 & 6.64 & 7 & 5.57 & 5.84 & 8.48 & 7.07
 
 三樣本的描述性統計如表 \ref{table:oneway_ANOVA}。由於三組樣本分布並不顯著偏離常態 (Shapiro-Wilk test，$p_1 = 0.709$，$p_2 = 0.85$，$p_3 = 0.925$)，且變異數不顯著不等 (Bartlett test，$\chi^2 = 0.469$, $\text{DF} = 2$，$p = 0.791$)，故以one-way ANOVA檢驗$H_0:\mu_1 = \mu_2 = \mu_3$。結果顯示，$x$為顯著因子 ($f = 9.297$，$\text{DF} = (2, 15)$, $p = 0.0024$)，且$\eta^2$顯示有55.3\% 的變異量可由$x$因子解釋。接下來以Tukey's range test進行多重比較，結果顯示，$x_1$與$x_3$存在顯著差異，而$x_2$與另二組皆無顯著差異 (表 \ref{table:oneway_ANOVA_post}；圖 \ref{fig:oneway_ANOVA})。
 
-\begin{table}
+\begin{table}[ht!]
 	\topcaption{獨立三樣本的描述性統計。} 
 	\centering
 	\begin{tabular}{lrrr}
@@ -208,7 +208,7 @@ x_3 & 7.65 & 6.64 & 7 & 5.57 & 5.84 & 8.48 & 7.07
 	\label{table:oneway_ANOVA}
 \end{table}
 
-\begin{table}
+\begin{table}[ht!]
 	\topcaption{獨立三樣本的事後多重比較。} 
 	\centering
 	\begin{tabular}{lrrrr}
@@ -223,7 +223,7 @@ x_3 & 7.65 & 6.64 & 7 & 5.57 & 5.84 & 8.48 & 7.07
 	\label{table:oneway_ANOVA_post}
 \end{table}
 
-\begin{figure}
+\begin{figure}[ht!]
 	\centering
 	\includegraphics[]{oneway_ANOVA.pdf}
 	\caption{獨立三樣本的觀測值盒形圖。上方字母為多重比較的分群結果；若任二組存在相同字母則表示不存在顯著差異，反則反之。}
@@ -243,7 +243,7 @@ x_3 & 7.12 & 7.4 & 8.19 & 3.66 & 3.78 & 11.9 & 6.87
 
 三樣本的描述性統計如表 \ref{table:Welch_ANOVA}。由於三組樣本分布並不顯著偏離常態 (Shapiro-Wilk test，$p_1 = 0.158$，$p_2 = 0.593$，$p_3 = 0.388$)，且變異數顯著不相等 (Bartlett test，$\chi^2 = 6.340$, $\text{DF} = 2$，$p = 0.042$)，故以Welch one-way ANOVA檢驗$H_0:\mu_1 = \mu_2 = \mu_3$。結果顯示，$x$為顯著因子 ($f = 8.248$，$\text{DF} = (2, 8.953)$, $p = 0.009$)，且$\eta^2$顯示有34.77\% 的變異量可由$x$因子解釋。接下來以Games-Howell method進行多重比較，結果顯示，$x_1$與$x_3$存在顯著差異，而$x_2$與另二組皆無顯著差異 (表 \ref{table:Welch_ANOVA_post}；圖 \ref{fig:Welch_ANOVA})。
 
-\begin{table}
+\begin{table}[ht!]
 	\topcaption{獨立三樣本的描述性統計。} 
 	\centering
 	\begin{tabular}{lrrr}
@@ -258,7 +258,7 @@ x_3 & 7.12 & 7.4 & 8.19 & 3.66 & 3.78 & 11.9 & 6.87
 	\label{table:Welch_ANOVA}
 \end{table}
 
-\begin{table}
+\begin{table}[ht!]
 	\topcaption{獨立三樣本的事後多重比較。} 
 	\centering
 	\begin{tabular}{lrrrrr}
@@ -273,7 +273,7 @@ x_3 & 7.12 & 7.4 & 8.19 & 3.66 & 3.78 & 11.9 & 6.87
 	\label{table:Welch_ANOVA_post}
 \end{table}
 
-\begin{figure}
+\begin{figure}[ht!]
 	\centering
 	\includegraphics[]{Welch_ANOVA.pdf}
 	\caption{獨立三樣本的觀測值盒形圖。上方字母為多重比較的分群結果；若任二組存在相同字母則表示不存在顯著差異，反則反之。}
@@ -281,6 +281,7 @@ x_3 & 7.12 & 7.4 & 8.19 & 3.66 & 3.78 & 11.9 & 6.87
 \end{figure}
 
 \subsection{非常態情況}
+(待撰)
 
 \section{簡單線性迴歸}
 以下樣本
@@ -294,7 +295,7 @@ y & 17 & 19.7 & 21.7 & 14.4 & 20 & 21.1 & 19.8 & 18.9
 
 簡單線性迴歸之結果如表 \ref{table:simple_regression} 及圖 \ref{fig:simple_regression}a。結果顯示，每$x$增加1單位使$y$平均顯著增加2.069單位，應拒絕$H_0: \beta_1 = 0$ (表 \ref{table:simple_regression}a)。就效果量而言，自變數可解釋$R^2 = 92.4\%$之變異量，屬高效果量。就迴歸診斷而言，殘差之Q-Q圖 (圖 \ref{fig:simple_regression}b) 顯示殘差呈輕微右偏態，Shapiro-Wilk test顯示殘差並未顯著偏離常態分布 ($W = 0.848$，$p=0.090$)，模型配適尚可。結論是，自變數顯著地增加應變數且效果明顯。
 
-\begin{table}[ht]
+\begin{table}[ht!]
 	\topcaption{簡單線性迴歸之結果。} 
 	\centering
 	\small
@@ -309,7 +310,7 @@ y & 17 & 19.7 & 21.7 & 14.4 & 20 & 21.1 & 19.8 & 18.9
 	\label{table:simple_regression}
 \end{table}
 
-\begin{figure}
+\begin{figure}[ht!]
 	\centering
 	\includegraphics[]{simple_regression.pdf}
 	\caption{簡單線性迴歸之散布圖及迴歸線 (a) 及Q-Q plot (b)。圖中灰色區域為 95\% confidence pointwise band。}
@@ -330,7 +331,7 @@ x_2 & 17 & 19.7 & 21.7 & 14.4 & 20 & 21.1 & 19.8 & 18.9
 
 首先以Shapiro-Wilk multivariate normality test檢驗$x_1$與$x_2$是否偏離雙變量常態分布，結果顯示不能拒絕$H_0: x_1與x_2之母體聯合分配為常態$ ($W = 0.860$，$p = 0.120$)，故可計算Pearson correlation。結果指出，$r = 0.960$屬高度正相關且應拒絕$H_0:\rho=0$ (95\% CI = $\left[ 0.789, 0.993\right]$, $t = 8.389$，$\text{DF} = 6$，$p < 0.001$；圖 \ref{fig:simple_cor})。結論是，$x_1$與$x_2$間存在顯著的高度正向線性相關性。
 
-\begin{figure}
+\begin{figure}[ht!]
 	\centering
 	\includegraphics[]{simple_cor.pdf}
 	\caption{$x_1$與$x_2$散布圖。圖中楕圓區域表示相關性之95\% confidence ellipse。}
@@ -349,17 +350,24 @@ x_2 & 0.3 & 0.2 & 4.4 & 2.7 & 0.1 & 1 & 0.3 & 0.5
 
 首先以Shapiro-Wilk multivariate normality test檢驗$x_1$與$x_2$是否偏離雙變量常態分布，結果顯示不能拒絕$H_0: x_1與x_2之母體聯合分配為常態$ ($W = 0.739$，$p = 0.006$)，故計算Spearman's rank correlation coefficient。結果指出，$r_\mathrm{s} = -0.241$屬低度負相關且無法拒絕$H_0:\rho_\mathrm{s}=0$ ($S = 104.24$，$p=0.565$；圖 \ref{fig:spearman_cor})。結論是，$x_1$與$x_2$間不存在顯著次序相關性。
 
-\begin{figure}
+\begin{figure}[ht!]
 	\centering
 	\includegraphics[]{spearman_cor.pdf}
 	\caption{$x_1$與$x_2$散布圖。}
 	\label{fig:spearman_cor}
 \end{figure}
 
+\section{卡方適合度檢驗}
+(待撰)
+
+\section{卡方獨立性檢驗}
+(待撰)
+
 \clearpage
+\onecolumn
 \appendix
 \section{R code}
 以下為本文中所有產生資料、進行分析、製作表格與繪圖之R code。
-\VerbatimInput[fontsize=\normalsize, baselinestretch=0.7, formatcom=\xeCJKVerbAddon, numbers=left, numbersep=2mm, framesep=3mm, frame=leftline]{report-results.R}
-%
+\VerbatimInput[fontsize=\normalsize, baselinestretch=0.769, formatcom=\xeCJKVerbAddon, numbers=left, numbersep=2mm, framesep=3mm, frame=leftline]{report-results.R}
+
 \end{document}
