@@ -4,7 +4,7 @@
 \usepackage{fancyvrb}
 \usepackage{topcapt}
 %\usepackage{fancyref, marvosym, textcomp, layout, amsmath, amssymb}
-\usepackage[textwidth={13.5cm}, vmargin={2.5cm}, nohead, includeheadfoot]{geometry}
+\usepackage[textwidth={13.25cm}, vmargin={2.5cm}, nohead, includeheadfoot]{geometry}
 
 
 \renewcommand{\contentsname}{目錄}
@@ -88,7 +88,7 @@
 \section{前言}
 在進行統計分析之後，報導重要的統計結果並正確解讀結果才是負責任的方式。一般而言，在收隻樣本後必須報導描述性統計，包括中央趨勢 (如平均值或中位數) 、樣本數及變異程度 (如標準偏差或標準誤差)；這些敘述性統計若內容太多可以改以圖或表的方式呈現。對於特別感到興趣的參數應計算其信賴區間。進行檢驗後應報導檢定統計量 (如$t$、$f$、$\chi^2$等) 、自由度與p-value，並報導合適的效果量 (如Cohan $d$、$r$、$R^2$等)。關於效果量在課堂中並未多加說明，且不同的效果量適合不同的統計方法，學生可按自己的能力決定是否報導效果量。
 
-以下我將按不同的分析情況示範報導分析結果。我刻意報導較多細節而看來繁鎖，學生可以模仿我的內容以撰寫報告作業，但未來其它課程或學術報告時參考使用即可。最末一併附上計算及繪圖之R code。本文內容將隨課程進度持續增加內容。
+以下我將按不同的分析情況示範報導分析結果。我刻意報導較多細節而看來繁瑣，學生可以模仿我的內容以撰寫報告作業，但未來其它課程或學術報告時參考使用即可。最末一併附上計算及繪圖之R code。本文內容將隨課程進度持續增加內容。
 
 
 
@@ -180,7 +180,7 @@ x_2 & 0.7 & 1.6 & 0.6 & 0.4 & 1.7 & 0.2 & 1.4 &
 	\label{fig:non-normal_independent_test}
 \end{figure}
 
-\section{多樣本均值檢驗}
+\section{多樣本單因子均值檢驗}
 \subsection{常態且變方同質情況}
 檢驗以下三獨立樣本
 \[
@@ -282,6 +282,9 @@ x_3 & 7.12 & 7.4 & 8.19 & 3.66 & 3.78 & 11.9 & 6.87
 \end{figure}
 
 \subsection{非常態情況}
+(待撰)
+
+\section{多樣本雙因子均值檢驗}
 (待撰)
 
 \section{簡單線性迴歸}
