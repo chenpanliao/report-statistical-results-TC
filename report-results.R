@@ -5,6 +5,9 @@ library(data.table)
 library(multcomp)
 library(multcompView)
 library(xtable)
+library(userfriendlyscience)
+library(mvnormtest)
+library(car)
 
 
 ## normal one-sample test
@@ -27,6 +30,7 @@ mean(x)
 sd(x)
 shapiro.test(x)
 wilcox.test(x, mu = 2)
+
 
 ## normal paired test
 set.seed(1234)
@@ -79,7 +83,7 @@ f2 <-
   ) +
   ylab("difference\n(x1 - x2)") +
   xlim(c(-0.15, 0.15))
-windows(4, 2)
+windows(3, 2)
 ggarrange(
   f1,
   f2,
@@ -148,7 +152,7 @@ f2 <-
   ) +
   ylab("difference\n(x1 - x2)") +
   xlim(c(-0.15, 0.15))
-windows(4, 2)
+windows(3, 2)
 ggarrange(
   f1,
   f2,
@@ -186,6 +190,7 @@ ggplot(d.plot, aes(group, observation)) +
   geom_jitter(width = 0.3) +
   theme_pubr(10, border = T)
 ggsave("normal_independent_test.pdf")
+
 
 ## non-normal independent two-sample test
 set.seed(6324)
@@ -259,3 +264,153 @@ ggplot(d, aes(group, y)) +
             size = 10 * 0.352777778) +
   theme_pubr(10, border = T)
 ggsave("oneway_ANOVA.pdf")
+
+
+## Welch’s ANOVA
+set.seed(12234)
+d <-
+  data.table(y = round(rnorm(
+    18,
+    mean = c(rep(4, 6), rep(6, 5), rep(7, 7)),
+    sd = c(rep(1, 6), rep(2, 5), rep(3, 7))
+  ), 2),
+  group = factor(c(rep("x1", 6), rep("x2", 5), rep("x3", 7))))
+tapply(d$y, d$group, shapiro.test)
+bartlett.test(y ~ group, d)
+d[, paste0(y, collapse = " & "), by = group]
+d[, .(Mean = mean(y),
+      SD = sd(y),
+      n = length(y)), by = group] %>%
+  as.data.frame %>%
+  xtable(
+    .,
+    digits = 3,
+    auto = T,
+    label = "table:Welch_ANOVA",
+    caption = "獨立三樣本的描述性統計。"
+  )
+aov(y ~ group, data = d) %>% summary
+oneway.test(y ~ group, data = d)
+mc <- posthocTGH(d$y, d$group, digits = 3)$output$games.howell
+mc %>%
+  xtable(
+    digits = 3,
+    auto = T,
+    label = "table:Welch_ANOVA_post",
+    caption = "獨立三樣本的事後多重比較。"
+  )
+fit.mult <-
+  mc$p %>%
+  set_names(rownames(mc)) %>%
+  multcompLetters %>%
+  .$Letters %>%
+  data.table(group = names(.), rank = .) %>%
+  merge(., d[, .(max.val = max(y)), by = group], by = "group")
+windows(3, 2)
+ggplot(d, aes(group, y)) +
+  geom_boxplot(width = 0.2,
+               outlier.shape = NA) +
+  geom_jitter(width = 0.3) +
+  geom_text(aes(group, max.val + 1, label = rank),
+            fit.mult,
+            size = 10 * 0.352777778) +
+  theme_pubr(10, border = T)
+ggsave("Welch_ANOVA.pdf")
+
+
+## simple linear regression
+set.seed(1234)
+x <- rnorm(8, 10) %>% round(1)
+y <- (x * 2 + rnorm(8)) %>% round(1)
+d <- data.table(x, y)
+fit <- lm(y ~ x, d)
+summary(fit)
+confint(fit)
+shapiro.test(fit$residuals)
+d[, paste0(x, collapse = " & ")]
+d[, paste0(y, collapse = " & ")]
+fit %>% {
+  cbind(
+    (.) %>% summary %>% .$coefficients ,
+    confint(.)
+  )
+} %>%
+  xtable(caption = "簡單線性迴歸之結果。", label = "simple_regression", digits = 3)
+f1 <-
+  ggplot(d, aes(x, y)) +
+  geom_smooth(method = "lm", color = 1, fill = "#aaaaaa") +
+  geom_point() +
+  annotate("text", label = "y = -1.016 = 2.069x,\nR^2 = 0.921", x = 9, y = 22, size = 10 * 0.352777778) +
+  theme_pubr(10, border = T)
+f2 <-
+  ggplot(d, aes(sample = fit$residuals)) +
+  stat_qq() + 
+  stat_qq_line() +
+  theme_pubr(10, border = T)
+windows(3, 4)
+ggarrange(
+  f1,
+  f2,
+  nrow = 2,
+  labels = "auto",
+  align = "hv",
+  widths = c(1, 1)
+)
+ggsave("simple_regression.pdf")
+
+
+## simple linear cor
+set.seed(1234)
+x1 <- rnorm(8, 10) %>% round(1)
+x2 <- (x * 2 + rnorm(8)) %>% round(1)
+d <- data.table(x1, x2)
+d[, paste0(x1, collapse = " & ")]
+d[, paste0(x2, collapse = " & ")]
+mshapiro.test(d %>% as.matrix %>% t)
+cor.test(d$x1, d$x2)
+fit <- lm(x2 ~ x1, d)
+windows(3, 2)
+ggplot(d, aes(x1, x2)) +
+  geom_path(data =
+              dataEllipse(
+                x1,
+                x2,
+                draw = F,
+                levels = 0.95,
+                segments = 500
+              ) %>%
+              as.data.table,
+            aes(x, y)) +
+  geom_point() +
+  annotate(
+    "text",
+    label = "r = 960, p < 0.001",
+    x = 8,
+    y = 25,
+    size = 10 * 0.352777778
+  ) +
+  theme_pubr(10, border = T)
+ggsave("simple_cor.pdf")
+
+
+## spearman correlation
+set.seed(125)
+x1 <- runif(8, 5, 8) %>% round(1)
+x2 <- rexp(8) %>% round(1)
+d <- data.table(x1, x2)
+mshapiro.test(d %>% as.matrix %>% t)
+d[, paste0(x1, collapse = " & ")]
+d[, paste0(x2, collapse = " & ")]
+cor.test(d$x1, d$x2, method = "spearman")
+windows(3, 2)
+ggplot(d, aes(x1, x2)) +
+  geom_point() +
+  annotate(
+    "text",
+    label = "r = -0.241, p = 0.565",
+    x = 7,
+    y = 4,
+    size = 10 * 0.352777778
+  ) +
+  theme_pubr(10, border = T)
+ggsave("spearman_cor.pdf")
