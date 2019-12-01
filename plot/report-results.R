@@ -407,7 +407,7 @@ ggarrange(
   nrow = 1,
   labels = "auto",
   align = "hv",
-  widths = c(1, 0.8)
+  widths = c(1, 1)
 )
 ggsave("simple_regression.pdf")
 
