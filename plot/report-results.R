@@ -492,7 +492,9 @@ glm(
   .[, blood := gsub("blood", "", blood)] %>% 
   merge(d[variable == "observation"], .) %>%
   .[, variable := NULL] %>%
-  xtable(caption = "血型頻率與比例估計。", label = "table:chisq_goodness", digits = 3)
+  xtable(caption = "血型頻率與比例估計。",
+         label = "table:chisq_goodness",
+         digits = 3)
 chisq.test(
   obs.val,
   p = exp.p,
