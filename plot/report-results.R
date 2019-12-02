@@ -467,3 +467,43 @@ ggplot(d, aes(x1, x2)) +
   ) +
   theme_pubr(10, border = T)
 ggsave("spearman_cor.pdf")
+
+
+## chi-squared goodness of fit
+obs.val <- c(20, 15, 3, 2)
+exp.p <- c(4, 3, 2, 1) %>% divide_by(sum(.))
+d <-
+  data.table(observation = obs.val,
+             expectation = exp.p * sum(obs.val),
+             blood = c("O", "A", "B", "AB")) %>%
+  melt(measure.vars = c("observation", "expectation"), value.name = "frequency") %>%
+  .[, proportion := frequency / sum(frequency), by = variable] %T>% 
+  print
+glm(
+  frequency ~ 
+    -1 + blood + 
+    offset(sum(d[variable == "observation"]$frequency) %>% log %>% rep(4)),
+  family = poisson,
+  data = d[variable == "observation"]
+) %>% 
+  confint %>% 
+  exp %>%
+  as.data.table(keep.rownames = "blood") %>%
+  .[, blood := gsub("blood", "", blood)] %>% 
+  merge(d[variable == "observation"], .) %>%
+  .[, variable := NULL] %>%
+  xtable(caption = "血型頻率與比例估計。", label = "table:chisq_goodness", digits = 3)
+chisq.test(
+  obs.val,
+  p = exp.p,
+  rescale.p = T,
+  simulate.p.value = T,
+  B = 4999
+)
+# windows(4, 2.5)
+# ggplot(d, aes(variable, proportion)) +
+#   geom_col(aes(fill = blood), color = 1, size = 0.2) +
+#   # coord_flip() +
+#   theme_pubr(10, border = T, legend = "right") +
+#   scale_y_continuous(sec.axis = sec_axis(~.*40, name = "frequency"))
+# ggsave("chisq_goodness.pdf")

@@ -409,7 +409,32 @@ x_2 & 0.3 & 0.2 & 4.4 & 2.7 & 0.1 & 1 & 0.3 & 0.5
 \end{figure}
 
 \section{卡方適合度檢驗}
-(待撰)
+隨機抽樣40人，發現各血型次數為$\{\text{O} : \text{A} : \text{B} : \text{AB}\} = \{20:15:3:2\}$。檢驗$H_0: \pi_{\mathrm{O}} : \pi_{\mathrm{A}} : \pi_{\mathrm{B}} : \pi_{\mathrm{AB}} = 0.4:0.3:0.2:0.1$。
+
+四種血型的母體比例估計如表 \ref{table:chisq_goodness}。卡方適合度檢驗結果指出$\chi^2 = 5.875$ (DF = 3)。由於血型B和AB之期望值極低 ($<1$)，故採用4,999次permutation得$p = 0.112$而不能拒絕$H_0$。
+
+\begin{table}[ht!]
+	\topcaption{血型頻率與比例估計。} 
+	\centering
+	\begin{tabular}{lrrr}
+		\hline
+		Blood type & Frequency & Proportion & 95\% CI \\ 
+		\hline
+		A & 15 & 0.375 & $\left[0.216, 0.598\right]$ \\ 
+		AB & 2 & 0.050 & $\left[0.008, 0.154\right]$ \\ 
+		B & 3 & 0.075 & $\left[0.019, 0.194\right]$ \\ 
+		O & 20 & 0.500 & $\left[0.312, 0.752\right]$ \\ 
+		\hline
+	\end{tabular}
+	\label{table:chisq_goodness}
+\end{table}
+
+%\begin{figure}[ht!]
+%	\centering
+%	\includegraphics[]{chisq_goodness.pdf}
+%	\caption{四種血型之比例與預期。}
+%	\label{fig:chisq_goodness}
+%\end{figure}
 
 \section{卡方獨立性檢驗}
 (待撰)
