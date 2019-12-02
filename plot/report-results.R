@@ -415,7 +415,7 @@ ggsave("simple_regression.pdf")
 ## simple linear cor
 set.seed(1234)
 x1 <- rnorm(8, 10) %>% round(1)
-x2 <- (x * 2 + rnorm(8)) %>% round(1)
+x2 <- (x1 * 2 + rnorm(8)) %>% round(1)
 d <- data.table(x1, x2)
 d[, paste0(x1, collapse = " & ")]
 d[, paste0(x2, collapse = " & ")]
