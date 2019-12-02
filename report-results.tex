@@ -7,7 +7,7 @@
 \usepackage{fancyvrb}
 \usepackage{topcapt}
 %\usepackage{fancyref, marvosym, textcomp, layout, amsmath, amssymb}
-\usepackage[b5paper, textwidth={32em}, vmargin={2cm}, nohead, includeheadfoot]{geometry}
+\usepackage[b5paper, textwidth={33em}, vmargin={1.8cm}, nohead, includeheadfoot]{geometry}
 
 \usepackage{titletoc}
 \contentsmargin{0pt}
@@ -84,7 +84,7 @@
   CJKecglue = {\hskip3pt plus 8pt minus 0pt},
   Verb = false]
 {xeCJK} 
-\setCJKmainfont[Scale=0.97, BoldFont={Noto Serif CJK JP Bold}]{Noto Serif CJK JP}
+\setCJKmainfont[Scale=1, BoldFont={Noto Serif CJK JP Bold}]{Noto Serif CJK JP}
 %\setCJKsansfont[Scale=0.97, BoldFont={}]{Sarasa Gothic CL}
 \setCJKmonofont[Scale=MatchUppercase]{Sarasa Term CL Light} 
 \newcommand{\nbs}{\hskip3pt plus 1pt minus 0pt}
@@ -126,12 +126,12 @@
 \subsection{常態情況}
 檢驗 8.8, 10.3, 11.1, 7.7, 10.4, 10.5, 9.4, 9.5, 9.4, 9.1 之中央趨勢是否顯著不同於9。
 
-結果指出，樣本平均$\pm$標準差為$9.62 \pm 0.987$ ($n = 10$)。由Shapiro-Wilk test檢驗常態性發現不能拒絕常態之虚無假設 ($W = 0.960$, $p = 0.790$)，故以one-sample two-tailed Student-t test進行檢驗$H_0: \mu=9$。結果指出，平均值的95\%信賴區間為$\left[8.914, 10.236\right]$，無法拒絕$\mu = 9$的虚無假說 ($t = 1.986$, $\text{DF} = 9$, $p = 0.078$)。此外，Cohen $D = 0.627$顯示中度效果量。結論是，母體平均不顯著不等於9，但由中度效果量推測，不顯著可能是因樣本數不足造成的。
+結果指出，樣本平均$\pm$標準差為$9.62 \pm 0.987$ ($n = 10$)。由Shapiro-Wilk test檢驗常態性發現不能拒絕常態之虚無假設 ($W = 0.960$，$p = 0.790$)，故以one-sample two-tailed Student-t test進行檢驗$H_0: \mu=9$。結果指出，平均值的95\%信賴區間為$\left[8.914, 10.236\right]$，無法拒絕$\mu = 9$的虚無假說 ($t = 1.986$，$\text{DF} = 9$，$p = 0.078$)。此外，Cohen $D = 0.627$顯示中度效果量。結論是，母體平均不顯著不等於9，但由中度效果量推測，不顯著可能是因樣本數不足造成的。
 
 \subsection{非常態情況}
 檢驗 2.5, 0.25, 0.01, 1.74, 0.39, 0.09, 0.82, 0.2, 0.84, 0.76 之中央趨勢是否顯著不同於2。
 
-結果指出，樣本平均$\pm$標準差為$0.76 \pm 0.797$ ($n = 10$)。由Shapiro-Wilk test檢驗常態性發現拒絕常態之虚無假設 ($W = 0.841$, $p = 0.045$)，故以Wilcoxon signed rank sum test進行檢驗$H_0: \text{中位數}=2$。結果指出，應拒絕中位數$=2$的虚無假說 ($\text{樣本中位數}=0.575$，$V = 2$, $p = 0.006$)。此外，多達90\% 的樣本小於2，顯示高度的效果量。結論是，母體中位數顯著不等於2且小於2。\footnote{在雙尾檢驗後若顯著可以藉樣本平均或中位數的大小直接解釋為顯著大於或小於。}
+結果指出，樣本平均$\pm$標準差為$0.76 \pm 0.797$ ($n = 10$)。由Shapiro-Wilk test檢驗常態性發現拒絕常態之虚無假設 ($W = 0.841$, $p = 0.045$)，故以Wilcoxon signed rank sum test進行檢驗$H_0: \text{中位數}=2$。結果指出，應拒絕中位數$=2$的虚無假說 ($\text{樣本中位數}=0.575$，$V = 2$，$p = 0.006$)。此外，多達90\% 的樣本小於2，顯示高度的效果量。結論是，母體中位數顯著不等於2且小於2。\footnote{在雙尾檢驗後若顯著可以藉樣本平均或中位數的大小直接解釋為顯著大於或小於。}
 
 \section{配對兩樣本均值檢驗}
 \subsection{常態情況}
@@ -144,7 +144,7 @@ x_2 & 9.2 & 10.4 & 11.6 & 7.7 & 10.6 & 11.6 & 11.4 & 10.4
 \]
 之差值 ($x_1 - x_2$) 中央趨勢是否顯著小於0.1。
 
-結果指出，$x_1$與$x_2$之平均$\pm$標準差分別為$9.71 \pm 1.095$及$10.36 \pm 1.344$ ($n_\mathrm{pair} = 8$； 圖 \ref{fig:normal_paired_test}a)。差值平均$\pm$標準差為$-0.65\pm0.665$  (圖 \ref{fig:normal_paired_test}b)。由Shapiro-Wilk test檢驗差值之常態性發現不能拒絕常態之虚無假設 ($W = 0.883$, $p = 0.202$)，故以two-sample paired t-test檢驗$H_0: \mu_1 - \mu_2 \geq 0.1$。結果指出，應拒絕虚無假設 ($t = -3.188$, $\text{DF} = 7$, $p = 0.015$)。此外，差值平均之95\%信賴區間為$\left[-1.206, -0.0936\right]$，且Cohen $D = 1.728$顯示高度效果量。結論是：差值平均顯著小於0且差距之效果量甚高。
+結果指出，$x_1$與$x_2$之平均$\pm$標準差分別為$9.71 \pm 1.095$及$10.36 \pm 1.344$ ($n_\mathrm{pair} = 8$； 圖 \ref{fig:normal_paired_test}a)。差值平均$\pm$標準差為$-0.65\pm0.665$  (圖 \ref{fig:normal_paired_test}b)。由Shapiro-Wilk test檢驗差值之常態性發現不能拒絕常態之虚無假設 ($W = 0.883$，$p = 0.202$)，故以two-sample paired t-test檢驗$H_0: \mu_1 - \mu_2 \geq 0.1$。結果指出，應拒絕虚無假設 ($t = -3.188$，$\text{DF} = 7$，$p = 0.015$)。此外，差值平均之95\%信賴區間為$\left[-1.206, -0.0936\right]$，且Cohen $D = 1.728$顯示高度效果量。結論是：差值平均顯著小於0且差距之效果量甚高。
 
 \begin{figure}[htb!]
 	\centering
@@ -163,7 +163,7 @@ x_2 & 5.6 & 6.2 & 6.6 & 6.7 & 6.7 & 5.8 & 4.8 & 8.1
 \]
 之差值 ($x_1 - x_2$) 中央趨勢是否顯著偏離1。
 
-結果指出，$x_1$與$x_2$之平均$\pm$標準差分別為$6.538 \pm 0.924$及$6.313 \pm 0.975$ ($n_\mathrm{pair} = 8$；圖 \ref{fig:non-normal_paired_test}a)。差值平均$\pm$標準差為$0.225\pm0.501$ (圖 \ref{fig:non-normal_paired_test}b)。由Shapiro-Wilk test檢驗差值之常態性，結果顯示應拒絕常態之虚無假設 ($W = 0.797$, $p = 0.026$)，故以Wilcoxon signed rank sum test進行檢驗$H_0: \text{差值中位數}=1$。結果顯示，差值中位數顯著不等於1 ($V = 0$, $p = 0.014$) 而是小於1。此外，100\% 的樣本差值小於1，具極高的效果量。結論是，差值母體中位數顯著小於1且效果量高。
+結果指出，$x_1$與$x_2$之平均$\pm$標準差分別為$6.538 \pm 0.924$及$6.313 \pm 0.975$ ($n_\mathrm{pair} = 8$；圖 \ref{fig:non-normal_paired_test}a)。差值平均$\pm$標準差為$0.225\pm0.501$ (圖 \ref{fig:non-normal_paired_test}b)。由Shapiro-Wilk test檢驗差值之常態性，結果顯示應拒絕常態之虚無假設 ($W = 0.797$，$p = 0.026$)，故以Wilcoxon signed rank sum test進行檢驗$H_0: \text{差值中位數}=1$。結果顯示，差值中位數顯著不等於1 ($V = 0$，$p = 0.014$) 而是小於1。此外，100\% 的樣本差值小於1，具極高的效果量。結論是，差值母體中位數顯著小於1且效果量高。
 
 \begin{figure}[htb!]
 	\centering
@@ -183,7 +183,7 @@ x_2 & 9.7 & 8.8 & 9.2 & 10.2 & 9.3 & 7.6 & 8.6
 \]
 之中央趨勢是否顯著偏離0。
 
-結果指出，$x_1$與$x_2$之平均$\pm$標準差分別為$10.02 \pm 1.095$及$9.057 \pm 0.836$ ($n_1 = 6$，$n_2 = 7$；圖 \ref{fig:normal_independent_test})。由Shapiro-Wilk test檢驗差值之常態性發現二樣本皆不能拒絕常態之虚無假設 ($x_1$，$W = 0.985$, $p = 0.975$；$x_2$，$W = 0.976$, $p = 0.938$)，故以Welch two-Sample t-test檢驗$H_0: \mu_1 - \mu_2 = 0$。結果指出不應拒絕虚無假設 ($t = 1.848$, $\text{DF} = 9.794$, $p = 0.095$)。此外，差值平均之95\%信賴區間為$\left[-0.201, 2.120\right]$，且Cohen $D = 1.044$顯示高度效果量。結論是二樣本平均無顯著差異，但效果量甚高，可能因樣本數不足而發生型二錯誤。
+結果指出，$x_1$與$x_2$之平均$\pm$標準差分別為$10.02 \pm 1.095$及$9.057 \pm 0.836$ ($n_1 = 6$，$n_2 = 7$；圖 \ref{fig:normal_independent_test})。由Shapiro-Wilk test檢驗差值之常態性發現二樣本皆不能拒絕常態之虚無假設 ($x_1$，$W = 0.985$，$p = 0.975$；$x_2$，$W = 0.976$，$p = 0.938$)，故以Welch two-Sample t-test檢驗$H_0: \mu_1 - \mu_2 = 0$。結果指出不應拒絕虚無假設 ($t = 1.848$，$\text{DF} = 9.794$，$p = 0.095$)。此外，差值平均之95\%信賴區間為$\left[-0.201, 2.120\right]$，且Cohen $D = 1.044$顯示高度效果量。結論是二樣本平均無顯著差異，但效果量甚高，可能因樣本數不足而發生型二錯誤。
 
 \begin{figure}[htb!]
 	\centering
@@ -202,7 +202,7 @@ x_2 & 0.7 & 1.6 & 0.6 & 0.4 & 1.7 & 0.2 & 1.4 &
 \]
 之中央趨勢是否顯著偏離0。
 
-結果指出，$x_1$與$x_2$之平均$\pm$標準差分別為$0.5 \pm 0.396$及$0.943 \pm 0.611$ ($n_1 = 8$；$n_2=7$；圖 \ref{fig:non-normal_independent_test})。由Shapiro-Wilk test檢驗差值之常態性發現$x_1$拒絕常態之虚無假設 ($x_1$，$W = 0.794$, $p = 0.024$；$x_2$，$W = 0.890$, $p = 0.276$)，故以Mann-Whitney U test檢驗$H_0: \text{Median}_1 - \text{Median}_2 = 0$。結果指出不應拒絕虚無假設 ($W = 18.5$, $p = 0.292$)。此外，Cliff's $d=0.339$顯示中等程度效果量。結論是，二樣本之中位數無顯著差異，但效果量程中度，可能因樣本數不足而發生型二錯誤。
+結果指出，$x_1$與$x_2$之平均$\pm$標準差分別為$0.5 \pm 0.396$及$0.943 \pm 0.611$ ($n_1 = 8$；$n_2=7$；圖 \ref{fig:non-normal_independent_test})。由Shapiro-Wilk test檢驗差值之常態性發現$x_1$拒絕常態之虚無假設 ($x_1$，$W = 0.794$，$p = 0.024$；$x_2$，$W = 0.890$，$p = 0.276$)，故以Mann-Whitney U test檢驗$H_0: \text{Median}_1 - \text{Median}_2 = 0$。結果指出不應拒絕虚無假設 ($W = 18.5$，$p = 0.292$)。此外，Cliff's $d=0.339$顯示中等程度效果量。結論是，二樣本之中位數無顯著差異，但效果量程中度，可能因樣本數不足而發生型二錯誤。
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[]{non-normal_independent_test.pdf}
@@ -222,7 +222,7 @@ x_3 & 7.65 & 6.64 & 7 & 5.57 & 5.84 & 8.48 & 7.07
 \]
 之中央趨勢是否相等。
 
-三樣本的描述性統計如表 \ref{table:oneway_ANOVA}。由於三組樣本分布並不顯著偏離常態 (Shapiro-Wilk test，$p_1 = 0.709$，$p_2 = 0.85$，$p_3 = 0.925$)，且變異數不顯著不等 (Bartlett test，$\chi^2 = 0.469$, $\text{DF} = 2$，$p = 0.791$)，故以one-way ANOVA檢驗$H_0:\mu_1 = \mu_2 = \mu_3$。結果顯示，$x$為顯著因子 ($f = 9.297$，$\text{DF} = (2, 15)$, $p = 0.0024$)，且$\eta^2$顯示有55.3\% 的變異量可由$x$因子解釋。接下來以Tukey's range test進行多重比較，結果顯示，$x_1$與$x_3$存在顯著差異，而$x_2$與另二組皆無顯著差異 (表 \ref{table:oneway_ANOVA_post}；圖 \ref{fig:oneway_ANOVA})。
+三樣本的描述性統計如表 \ref{table:oneway_ANOVA}。由於三組樣本分布並不顯著偏離常態 (Shapiro-Wilk test，$p_1 = 0.709$，$p_2 = 0.85$，$p_3 = 0.925$)，且變異數不顯著不等 (Bartlett test，$\chi^2 = 0.469$，$\text{DF} = 2$，$p = 0.791$)，故以one-way ANOVA檢驗$H_0:\mu_1 = \mu_2 = \mu_3$。結果顯示，$x$為顯著因子 ($f = 9.297$，$\text{DF} = (2, 15)$，$p = 0.0024$)，且$\eta^2$顯示有55.3\% 的變異量可由$x$因子解釋。接下來以Tukey's range test進行多重比較，結果顯示，$x_1$與$x_3$存在顯著差異，而$x_2$與另二組皆無顯著差異 (表 \ref{table:oneway_ANOVA_post}；圖 \ref{fig:oneway_ANOVA})。
 
 \begin{table}[htb!]
 	\topcaption{獨立三樣本的描述性統計。} 
@@ -272,7 +272,7 @@ x_3 & 7.12 & 7.4 & 8.19 & 3.66 & 3.78 & 11.9 & 6.87
 \]
 之中央趨勢是否相等。
 
-三樣本的描述性統計如表 \ref{table:Welch_ANOVA}。由於三組樣本分布並不顯著偏離常態 (Shapiro-Wilk test，$p_1 = 0.158$，$p_2 = 0.593$，$p_3 = 0.388$)，且變異數顯著不相等 (Bartlett test，$\chi^2 = 6.340$, $\text{DF} = 2$，$p = 0.042$)，故以Welch one-way ANOVA檢驗$H_0:\mu_1 = \mu_2 = \mu_3$。結果顯示，$x$為顯著因子 ($f = 8.248$，$\text{DF} = (2, 8.953)$, $p = 0.009$)，且$\eta^2$顯示有34.77\% 的變異量可由$x$因子解釋。接下來以Games-Howell method進行多重比較，結果顯示，$x_1$與$x_3$存在顯著差異，而$x_2$與另二組皆無顯著差異 (表 \ref{table:Welch_ANOVA_post}；圖 \ref{fig:Welch_ANOVA})。
+三樣本的描述性統計如表 \ref{table:Welch_ANOVA}。由於三組樣本分布並不顯著偏離常態 (Shapiro-Wilk test，$p_1 = 0.158$，$p_2 = 0.593$，$p_3 = 0.388$)，且變異數顯著不相等 (Bartlett test，$\chi^2 = 6.340$，$\text{DF} = 2$，$p = 0.042$)，故以Welch one-way ANOVA檢驗$H_0:\mu_1 = \mu_2 = \mu_3$。結果顯示，$x$為顯著因子 ($f = 8.248$，$\text{DF} = (2, 8.953)$，$p = 0.009$)，且$\eta^2$顯示有34.77\% 的變異量可由$x$因子解釋。接下來以Games-Howell method進行多重比較，結果顯示，$x_1$與$x_3$存在顯著差異，而$x_2$與另二組皆無顯著差異 (表 \ref{table:Welch_ANOVA_post}；圖 \ref{fig:Welch_ANOVA})。
 
 \begin{table}[htb!]
 	\topcaption{獨立三樣本的描述性統計。} 
@@ -322,7 +322,7 @@ x_3 & 0.5 & 2 & 0.8 & 0.3 & 0.4 & 0.4 & &
 \]
 之中央趨勢是否相等。
 
-三樣本的描述性統計如表 \ref{table:rank_oneway}。由於$x_1$與$x_3$分布顯著偏離常態 (Shapiro-Wilk test，$p_1 = 0.014$，$p_2 = 0.577$，$p_3 = 0.008$)，故以Kruskal-Wallis rank sum test檢驗$H_0:\text{中位數}_1 = \text{中位數}_2 = \text{中位數}_3$。結果顯示，$x$為顯著因子 ($\chi^2 = 9.041$，$\text{DF} = 2$, $p = 0.011$)，且$\eta^2 = 0.391$顯示高度效果量。Dunn's Kruskal-Wallis multiple comparisons之多重比較結果顯示，$x_1$與$x_3$存在顯著差異，而$x_2$與另二組皆無顯著差異 (表 \ref{table:rank_oneway_post}；圖 \ref{fig:rank_oneway})。
+三樣本的描述性統計如表 \ref{table:rank_oneway}。由於$x_1$與$x_3$分布顯著偏離常態 (Shapiro-Wilk test，$p_1 = 0.014$，$p_2 = 0.577$，$p_3 = 0.008$)，故以Kruskal-Wallis rank sum test檢驗$H_0:\text{中位數}_1 = \text{中位數}_2 = \text{中位數}_3$。結果顯示，$x$為顯著因子 ($\chi^2 = 9.041$，$\text{DF} = 2$，$p = 0.011$)，且$\eta^2 = 0.391$顯示高度效果量。Dunn's Kruskal-Wallis multiple comparisons之多重比較結果顯示，$x_1$與$x_3$存在顯著差異，而$x_2$與另二組皆無顯著差異 (表 \ref{table:rank_oneway_post}；圖 \ref{fig:rank_oneway})。
 
 \begin{table}[htb!]
 	\topcaption{獨立三樣本的描述性統計。} 
@@ -410,7 +410,7 @@ x_2 & 17 & 19.7 & 21.7 & 14.4 & 20 & 21.1 & 19.8 & 18.9
 \]
 中，分析二變數之間的相關性。
 
-首先以Shapiro-Wilk multivariate normality test檢驗$x_1$與$x_2$是否偏離雙變量常態分布，結果顯示不能拒絕$H_0: x_1與x_2之母體聯合分配為常態$ ($W = 0.860$，$p = 0.120$)，故可計算Pearson correlation。結果指出，$r = 0.960$屬高度正相關且應拒絕$H_0:\rho=0$ (95\% CI = $\left[ 0.789, 0.993\right]$, $t = 8.389$，$\text{DF} = 6$，$p < 0.001$；圖 \ref{fig:simple_cor})。結論是，$x_1$與$x_2$間存在顯著的高度正向線性相關性。
+首先以Shapiro-Wilk multivariate normality test檢驗$x_1$與$x_2$是否偏離雙變量常態分布，結果顯示不能拒絕$H_0: x_1與x_2之母體聯合分配為常態$ ($W = 0.860$，$p = 0.120$)，故可計算Pearson correlation。結果指出，$r = 0.960$屬高度正相關且應拒絕$H_0:\rho=0$ (95\% CI = $\left[ 0.789, 0.993\right]$，$t = 8.389$，$\text{DF} = 6$，$p < 0.001$；圖 \ref{fig:simple_cor})。結論是，$x_1$與$x_2$間存在顯著的高度正向線性相關性。
 
 \begin{figure}[htb!]
 	\centering
@@ -479,7 +479,7 @@ x_2 & 0.3 & 0.2 & 4.4 & 2.7 & 0.1 & 1 & 0.3 & 0.5
 \]
 試檢驗居住地與收入分級獨立$H_0: \pi_{ij} = \pi_i\pi_j$。
 
-居住地與收入的邊際比例如圖 \ref{fig:chisq_independent}。卡方適合度檢驗結果指出應拒絕$H_0$表示居住地與收入並不獨立而存在關聯性($\chi^2 = 30.849$，$\text{DF} = 4$, $p < 0.001$)。Cohen's W = 0.297顯示居住地與收入之關聯性幾乎達到中等程度 (0.3即達中度關聯)。若以居住地為多重比較的目標因子，再以卡方適合度比較居住地間比例並以Holm-Bonferroni method控制整體型一錯誤率，結果顯示居住地A顯著不同於居住地B及居住地C但B與C間無顯著差異 (圖 \ref{fig:chisq_independent}a)。綜合上述，居住地與收入並不獨立而存在顯著關聯性，主要由居住地A與另外二地點的差異 (若以居住地為比較對象) 造成。
+居住地與收入的邊際比例如圖 \ref{fig:chisq_independent}。卡方適合度檢驗結果指出應拒絕$H_0$表示居住地與收入並不獨立而存在關聯性($\chi^2 = 30.849$，$\text{DF} = 4$，$p < 0.001$)。Cohen's W = 0.297顯示居住地與收入之關聯性幾乎達到中等程度 (0.3即達中度關聯)。若以居住地為多重比較的目標因子，再以卡方適合度比較居住地間比例並以Holm-Bonferroni method控制整體型一錯誤率，結果顯示居住地A顯著不同於居住地B及居住地C但B與C間無顯著差異 (圖 \ref{fig:chisq_independent}a)。綜合上述，居住地與收入並不獨立而存在顯著關聯性，主要由居住地A與另外二地點的差異 (若以居住地為比較對象) 造成。
 
 \begin{figure}[htb!]
 	\centering
@@ -489,7 +489,7 @@ x_2 & 0.3 & 0.2 & 4.4 & 2.7 & 0.1 & 1 & 0.3 & 0.5
 \end{figure}
 
 
-%\clearpage
+\clearpage
 %\onecolumn
 \appendix
 \section{R code}
