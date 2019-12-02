@@ -10,6 +10,7 @@ library(mvnormtest)
 library(car)
 library(FSA)
 library(rstatix)
+library(rcompanion)
 
 ## normal one-sample test
 set.seed(1234)
@@ -502,10 +503,97 @@ chisq.test(
   simulate.p.value = T,
   B = 4999
 )
-# windows(4, 2.5)
-# ggplot(d, aes(variable, proportion)) +
-#   geom_col(aes(fill = blood), color = 1, size = 0.2) +
-#   # coord_flip() +
-#   theme_pubr(10, border = T, legend = "right") +
-#   scale_y_continuous(sec.axis = sec_axis(~.*40, name = "frequency"))
-# ggsave("chisq_goodness.pdf")
+
+
+## chi-squared independent test
+d <-
+  matrix(c(2, 10, 68, 30, 10, 50, 60, 19, 101), 3, byrow = T) %>%
+  set_rownames(c("A", "B", "C")) %>%
+  set_colnames(c("low", "median", "high"))
+chisq.test(d)
+chisq.test(d, simulate.p.value = T, B = 4999)
+# ufs::cramersV(d)
+# ufs::confIntV(d)
+# rcompanion::cramerV(d, ci = T, bias.correct = T)
+chisq.val <- chisq.test(d)$statistic
+C <- sqrt(chisq.val/(chisq.val + sum(d)))
+W <- sqrt(C^2 / (1-C^2))
+W # Cohan's W
+mc <-
+  combn(1:nrow(d), 2, function(x) {
+    chisq.test(d[, c(x[1], x[2])], simulate.p.value = T, B = 4999)
+  }) %>%
+  .[c(1, 3), ] %>%
+  as.matrix %>%
+  set_rownames(c("chisq", "p")) %>%
+  set_colnames(combn(rownames(d), 2, function(x) {
+    paste0(x[1], "-", x[2])
+  })) %T>%
+  print %>%
+  .["p",] %>%
+  unlist %>%
+  p.adjust %>%
+  multcompLetters %>%
+  .$Letters %T>%
+  print
+d %>% as.table %>% prop.table
+d %>% as.table %>% plot
+d.long <-
+  merge(
+    d %>%
+      reshape2::melt(
+        varnames = c("location", "income"),
+        value.name = "frequency"
+      ) %>%
+      as.data.table,
+    d %>% as.table %>% prop.table(margin = 1) %>%
+      reshape2::melt(
+        varnames = c("location", "income"),
+        value.name = "ratio by location"
+      ) %>%
+      as.data.table,
+    by = c("location", "income")
+  ) %>%
+  merge(
+        d %>% as.table %>% prop.table(margin = 2) %>%
+      reshape2::melt(
+        varnames = c("location", "income"),
+        value.name = "ratio by income"
+      ) %>%
+      as.data.table
+  ) %T>%
+  print
+f1 <-
+  ggplot(d.long, aes(location, `ratio by location`)) +
+  geom_col(aes(fill = income)) +
+  theme_pubr(10, border = T) +
+  annotate(
+    "text",
+    label = rowSums(d),
+    x = 1:3,
+    y = 1.1,
+    size = 10 * 0.352777778
+  ) +
+  annotate(
+    "text",
+    label = mc,
+    x = 1:3,
+    y = 1.2,
+    size = 10 * 0.352777778
+  ) +
+  scale_y_continuous("ratio", breaks  = seq(0, 1, 0.2), limits = c(0, 1.2))
+f2 <-
+  ggplot(d.long, aes(income, `ratio by income`)) +
+  geom_col(aes(fill = location)) +
+  theme_pubr(10, border = T) +
+  annotate(
+    "text",
+    label = colSums(d),
+    x = 1:3,
+    y = 1.1,
+    size = 10 * 0.352777778
+  ) +
+  scale_y_continuous("ratio", breaks  = seq(0, 1, 0.2), limits = c(0, 1.2))
+windows(4, 5)
+ggarrange(f1, f2, nrow = 2, align = "hv", labels = "auto", legend = "right")
+ggsave("chisq_independent.pdf")
