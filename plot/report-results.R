@@ -85,7 +85,7 @@ f2 <-
   ) +
   ylab("difference\n(x1 - x2)") +
   xlim(c(-0.15, 0.15))
-windows(4, 2.5)
+windows(4, 2.0)
 ggarrange(
   f1,
   f2,
@@ -154,7 +154,7 @@ f2 <-
   ) +
   ylab("difference\n(x1 - x2)") +
   xlim(c(-0.15, 0.15))
-windows(4, 2.5)
+windows(4, 2.0)
 ggarrange(
   f1,
   f2,
@@ -185,7 +185,7 @@ d.plot <-
     observation = c(x1, x2),
     group = c(rep("x1", 6), rep("x2", 7))
   )
-windows(4, 2.5)
+windows(4, 2.0)
 ggplot(d.plot, aes(group, observation)) +
   geom_boxplot(width = 0.2,
                outlier.shape = NA) +
@@ -206,13 +206,13 @@ mean(x1)
 sd(x1)
 mean(x2)
 sd(x2)
-windows(4, 2.5)
+windows(4, 2.0)
 d.plot <-
   data.table(
     observation = c(x1, x2),
     group = c(rep("x1", 8), rep("x2", 7))
   )
-windows(4, 2.5)
+windows(4, 2.0)
 ggplot(d.plot, aes(group, observation)) +
   geom_boxplot(width = 0.2,
                outlier.shape = NA) +
@@ -256,7 +256,7 @@ fit.mult <-
   .$Letters %>%
   data.table(group = names(.), rank = .) %>%
   merge(., d[, .(max.val = max(y)), by = group], by = "group")
-windows(4, 2.5)
+windows(4, 2.0)
 ggplot(d, aes(group, y)) +
   geom_boxplot(width = 0.2,
                outlier.shape = NA) +
@@ -308,7 +308,7 @@ fit.mult <-
   .$Letters %>%
   data.table(group = names(.), rank = .) %>%
   merge(., d[, .(max.val = max(y)), by = group], by = "group")
-windows(4, 2.5)
+windows(4, 2.0)
 ggplot(d, aes(group, y)) +
   geom_boxplot(width = 0.2,
                outlier.shape = NA) +
@@ -352,7 +352,7 @@ fit.mult <-
   .$Letters %>%
   data.table(group = names(.), rank = .) %>%
   merge(., d[, .(max.val = max(y)), by = group], by = "group")
-windows(4, 2.5)
+windows(4, 2.0)
 ggplot(d, aes(group, y)) +
   geom_boxplot(width = 0.2,
                outlier.shape = NA) +
@@ -362,6 +362,92 @@ ggplot(d, aes(group, y)) +
             size = 10 * 0.352777778) +
   theme_pubr(10, border = T)
 ggsave("rank_oneway.pdf")
+
+
+## twoway ANOVA factorial design
+set.seed(1224)
+d <- data.table(
+  A = c(rep("A1", 13), rep("A2", 13)),
+  B = c(rep("B1", 4), rep("B2", 4), rep("B3", 5)) %>% rep(2),
+  Y = rnorm(26, mean = c(
+    rep(5, 4), rep(5, 4), rep(6, 5), rep(6, 4), rep(6, 4), rep(10, 5)
+  )) %>% round(1)
+)
+d[, shapiro.test(Y), by = .(A, B)]
+bartlett.test(Y ~ interaction(A, B), data = d)
+fit.full <-
+  lm(Y ~ A * B,
+     data = d,
+     contrasts = list(A = contr.sum, B = contr.sum))
+summary(fit.full)
+Anova(fit.full, type = 3) %>% 
+  xtable(caption = "Twoway ANOVA之變方分析表。", label = "table:twowayANOVA")
+drop1(fit.full, test = "F")
+d[, group := paste0(A, B)]
+fit <- aov(Y ~ group, data = d)
+summary(fit)
+TukeyHSD(fit, "group")$group
+TukeyHSD(fit, "group")$group %>%
+  xtable(
+    digits = 3,
+    auto = T,
+    label = "table:twoway_ANOVA_post",
+    caption = "$3\tiems2$因子實驗之簡單主效應事後多重比較。"
+  )
+fit.mult <-
+  TukeyHSD(fit, "group")$group[, "p adj"] %>%
+  multcompLetters %>%
+  .$Letters %>%
+  data.table(group = names(.), rank = .) %>%
+  merge(., d[, .(max.val = max(Y)), by = group], by = "group")
+d.summary <-
+  d[, .(
+    average = mean(Y),
+    SD = sd(Y),
+    CI.lower = t.test(Y)$conf.int[1],
+    CI.upper = t.test(Y)$conf.int[2],
+    n = .N
+  ), by = .(A, B, group)] %>%
+  merge(., fit.mult, by = "group") %T>%
+  print
+ggplot(fortify(fit.full), aes(sample = .resid)) +
+  stat_qq() +
+  stat_qq_line() +
+  theme_pubr(10, border = T)
+
+pd <- position_dodge(0.7)
+windows(4, 3)
+ggplot(d.summary, aes(A, average)) +
+  geom_errorbar(
+    aes(ymin = CI.lower, ymax = CI.upper, color = B),
+    width = 0.3,
+    size = 1,
+    position = pd
+  ) +
+  geom_point(aes(shape = B, color = B), position = pd, size = 3) +
+  geom_text(
+    aes(
+      y = CI.upper + 0.5,
+      label = rank,
+      group = B
+    ),
+    position = pd,
+    size = 10 * 0.352777778
+  ) +
+  geom_text(aes(y = 2.5, label = n, group = B),
+            position = pd,
+            size = 10 * 0.352777778) +
+  geom_jitter(
+    aes(A, Y, shape = B),
+    data = d,
+    position = position_jitterdodge(jitter.width = 0.15, dodge.width = 0.7),
+    size = 1.2,
+    color = 8
+  ) +
+  theme_pubr(10, border = T, legend = "top") +
+  ylab("observation, average and 95% CI") +
+  theme(legend.text = element_text(size = 10))
+ggsave("twoway_ANOVA.pdf")
 
 
 ## simple linear regression
@@ -386,7 +472,7 @@ fit %>% {
          digits = 3)
 f1 <-
   ggplot(d, aes(x, y)) +
-  geom_smooth(method = "lm", color = 1, fill = "#aaaaaa") +
+  geom_smooth(method = "lm") +
   geom_point() +
   annotate(
     "text",
@@ -423,7 +509,7 @@ d[, paste0(x2, collapse = " & ")]
 mshapiro.test(d %>% as.matrix %>% t)
 cor.test(d$x1, d$x2)
 fit <- lm(x2 ~ x1, d)
-windows(4, 2.5)
+windows(4, 2.0)
 ggplot(d, aes(x1, x2)) +
   geom_path(data =
               dataEllipse(
@@ -456,7 +542,7 @@ mshapiro.test(d %>% as.matrix %>% t)
 d[, paste0(x1, collapse = " & ")]
 d[, paste0(x2, collapse = " & ")]
 cor.test(d$x1, d$x2, method = "spearman")
-windows(4, 2.5)
+windows(4, 2.0)
 ggplot(d, aes(x1, x2)) +
   geom_point() +
   annotate(
@@ -594,6 +680,6 @@ f2 <-
     size = 10 * 0.352777778
   ) +
   scale_y_continuous("ratio", breaks  = seq(0, 1, 0.2), limits = c(0, 1.2))
-windows(4, 5)
-ggarrange(f1, f2, nrow = 2, align = "hv", labels = "auto", legend = "right")
+windows(6, 2.5)
+ggarrange(f1, f2, nrow = 1, align = "hv", labels = "auto", legend = "right")
 ggsave("chisq_independent.pdf")

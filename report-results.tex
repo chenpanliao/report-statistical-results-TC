@@ -7,7 +7,7 @@
 \usepackage{fancyvrb}
 \usepackage{topcapt}
 %\usepackage{fancyref, marvosym, textcomp, layout, amsmath, amssymb}
-\usepackage[b5paper, textwidth={32em}, vmargin={1.5cm}, includeheadfoot]{geometry}
+\usepackage[b5paper, textwidth={34em}, vmargin={1.5cm}, nohead, includeheadfoot]{geometry}
 
 \usepackage{titletoc}
 \contentsmargin{0pt}
@@ -36,7 +36,7 @@
 \usepackage[
 	%	pdfdirection={L2R},
 	bookmarks=true,
-	colorlinks=false,
+	colorlinks=true,
 	pageanchor=true,
 	linktocpage=true,
 	hyperfootnotes=true,
@@ -53,7 +53,7 @@
 	pdfpagelayout={OneColumn},
 	%	pdfpagelayout={TwoColumnRight},
 	pdfpagemode={UseOutlines},
-	%linkcolor=blue, citecolor=blue, filecolor=blue, urlcolor=blue,
+%	linkcolor=blue, citecolor=blue, filecolor=blue, urlcolor=blue,
 	pdfborder={0 0 1},
 	pdfauthor={Chen-Pan Liao},
 	pdftitle={統計分析結果的報導方式},
@@ -66,41 +66,43 @@
 
 %% 西文字配置
 \usepackage{amsmath}
-%\usepackage{microtype}
-\linespread{1.3}
+\usepackage{microtype}
+\linespread{1.35}
 \usepackage[no-math]{fontspec}
-\setmainfont[Mapping=tex-text]{Latin Modern Roman}
+\setmainfont[Mapping=tex-text]{STIX Two Text}%{Latin Modern Roman}
 %\setsansfont[Mapping=tex-text]{CMU Sans Serif}
 \setmonofont[Scale=MatchUppercase]{Sarasa Term CL Light}%
 \usepackage{unicode-math}
-\setmathfont{Latin Modern Math}
+\setmathfont{STIX2Math.otf}
+
+
 
 %% 中文字配置
 \usepackage[
   CJKmath=true, 
   PunctStyle={quanjiao},
   CheckSingle=true, 
-  CJKglue = {\hskip0pt plus 3pt minus 0.5pt},
+  CJKglue = {\hskip0pt plus 4pt minus 0pt},
   CJKecglue = {\hskip3pt plus 8pt minus 0pt},
   Verb = false]
 {xeCJK} 
-\setCJKmainfont[Scale=1, BoldFont={Noto Serif CJK JP Bold}]{Noto Serif CJK JP}
+\setCJKmainfont[Scale=0.98, BoldFont={Noto Serif CJK JP Bold}]{Noto Serif CJK JP Medium}
 %\setCJKsansfont[Scale=0.97, BoldFont={}]{Sarasa Gothic CL}
 \setCJKmonofont[Scale=MatchUppercase]{Sarasa Term CL Light} 
 \newcommand{\nbs}{\hskip3pt plus 1pt minus 0pt}
 
 %\usepackage[small, compact]{titlesec}
-\usepackage{titlesec}
-\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
-\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{}
-\titlespacing*{\section}{0pt}{5.5ex plus 2ex minus .2ex}{2.3ex plus .2ex}
-\titlespacing*{\subsection}{0pt}{3.55ex plus 1.3ex minus .2ex}{1.5ex plus .2ex}
-\usepackage[marginal, perpage]{footmisc}
+%\usepackage{titlesec}
+%\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
+%\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+%\titlespacing*{\section}{0pt}{4.5ex plus 2ex minus .2ex}{2.3ex plus .2ex}
+%\titlespacing*{\subsection}{0pt}{2.55ex plus 1.3ex minus .2ex}{1.5ex plus .2ex}
+%\usepackage[marginal, perpage]{footmisc}
 
 %\usepackage[skip=0pt]{caption}
 \usepackage[]{caption}
-\setlength{\abovecaptionskip}{0pt}
-\setlength{\belowcaptionskip}{0pt}
+\setlength{\abovecaptionskip}{0.5ex}
+\setlength{\belowcaptionskip}{0.5ex}
 \captionsetup[figure]{labelfont=bf}
 \captionsetup[table]{labelfont=bf}
 
@@ -115,7 +117,7 @@
 \tableofcontents
 
 \section{前言}
-一般而言，在收隻樣本後必須報導描述性統計，包括中央趨勢 (如平均值或中位數) 、樣本數及變異程度 (如標準偏差或標準誤差)；這些敘述性統計若內容太多可以改以圖或表的方式呈現。對於特別感到興趣的參數應計算其信賴區間。進行檢驗後應報導檢定統計量 (如$t$、$f$、$\chi^2$等) 、自由度與p-value，並報導合適的效果量 (如Cohen $d$、$r$、$R^2$等)。在撰寫統計結果時，必須報導上述重要的統計結果，重新編排成有意義的圖或表，最終正確解讀結果。然而，在筆者經驗中，初學統計的大學生往往不能掌握這一連串撰寫統計結果的技巧。
+一般而言，在收隻樣本後必須報導描述性統計，包括中央趨勢 (如平均值或中位數) 、樣本數及變異程度 (如標準偏差或標準誤差)；這些敘述性統計若內容太多可以改以圖或表的方式呈現。對於特別感到興趣的參數應計算其信賴區間。進行檢驗後應報導檢定統計量 (如$T$、$F$、$\chi^2$等) 、自由度與p-value，並報導合適的效果量 (如Cohen's $D$、$r$、$R^2$等)。在撰寫統計結果時，必須報導上述重要的統計結果，重新編排成有意義的圖或表，最終正確解讀結果。然而，在筆者經驗中，初學統計的大學生往往不能掌握這一連串撰寫統計結果的技巧。
 
 因此，我收集了一些常見統計例題，並以學術報告口吻示範如何報導上述統計結果供學生模仿。以下我將按不同的分析情況示範報導分析結果，包括結果的文字撰寫與製作合適的圖表。因課程訓練需求，我刻意報導較多細節而看來十分繁瑣冗長。學生可以先模仿我的內容以撰寫統計學報告與作業，但未來其它課程或學術報告時應有所取捨。最末一併附上計算及繪圖之R code。本文內容將隨課程進度持續增加內容。
 
@@ -126,12 +128,12 @@
 \subsection{常態情況}
 檢驗 8.8, 10.3, 11.1, 7.7, 10.4, 10.5, 9.4, 9.5, 9.4, 9.1 之中央趨勢是否顯著不同於9。
 
-結果指出，樣本平均$\pm$標準差為$9.62 \pm 0.987$ ($n = 10$)。由Shapiro-Wilk test檢驗常態性發現不能拒絕常態之虚無假設 ($W = 0.960$，$p = 0.790$)，故以one-sample two-tailed Student-t test進行檢驗$H_0: \mu=9$。結果指出，平均值的95\%信賴區間為$\left[8.914, 10.236\right]$，無法拒絕$\mu = 9$的虚無假說 ($t = 1.986$，$\text{DF} = 9$，$p = 0.078$)。此外，Cohen $D = 0.627$顯示中度效果量。結論是，母體平均不顯著不等於9，但由中度效果量推測，不顯著可能是因樣本數不足造成的。
+結果指出，樣本平均$\pm$標準差為$9.62 \pm 0.987$ ($n = 10$)。由Shapiro-Wilk test檢驗常態性發現不能拒絕常態之虚無假設 ($W = 0.960$，$P = 0.790$)，故以one-sample two-tailed Student-t test進行檢驗$H_0: \mu=9$。結果指出，平均值的95\%信賴區間為$\left[8.914, 10.236\right]$，無法拒絕$\mu = 9$的虚無假說 ($T = 1.986$，$\text{DF} = 9$，$P = 0.078$)。此外，Cohen's $D = 0.627$顯示中度效果量。結論是，母體平均不顯著不等於9，但由中度效果量推測，不顯著可能是因樣本數不足造成的。
 
 \subsection{非常態情況}
 檢驗 2.5, 0.25, 0.01, 1.74, 0.39, 0.09, 0.82, 0.2, 0.84, 0.76 之中央趨勢是否顯著不同於2。
 
-結果指出，樣本平均$\pm$標準差為$0.76 \pm 0.797$ ($n = 10$)。由Shapiro-Wilk test檢驗常態性發現拒絕常態之虚無假設 ($W = 0.841$, $p = 0.045$)，故以Wilcoxon signed rank sum test進行檢驗$H_0: \text{中位數}=2$。結果指出，應拒絕中位數$=2$的虚無假說 ($\text{樣本中位數}=0.575$，$V = 2$，$p = 0.006$)。此外，多達90\% 的樣本小於2，顯示高度的效果量。結論是，母體中位數顯著不等於2且小於2。\footnote{在雙尾檢驗後若顯著可以藉樣本平均或中位數的大小直接解釋為顯著大於或小於。}
+結果指出，樣本平均$\pm$標準差為$0.76 \pm 0.797$ ($n = 10$)。由Shapiro-Wilk test檢驗常態性發現拒絕常態之虚無假設 ($W = 0.841$, $P = 0.045$)，故以Wilcoxon signed rank sum test進行檢驗$H_0: \text{中位數}=2$。結果指出，應拒絕中位數$=2$的虚無假說 ($\text{樣本中位數}=0.575$，$V = 2$，$P = 0.006$)。此外，多達90\% 的樣本小於2，顯示高度的效果量。結論是，母體中位數顯著不等於2且小於2。\footnote{在雙尾檢驗後若顯著可以藉樣本平均或中位數的大小直接解釋為顯著大於或小於。}
 
 \section{配對兩樣本均值檢驗}
 \subsection{常態情況}
@@ -144,7 +146,7 @@ x_2 & 9.2 & 10.4 & 11.6 & 7.7 & 10.6 & 11.6 & 11.4 & 10.4
 \]
 之差值 ($x_1 - x_2$) 中央趨勢是否顯著小於0.1。
 
-結果指出，$x_1$與$x_2$之平均$\pm$標準差分別為$9.71 \pm 1.095$及$10.36 \pm 1.344$ ($n_\mathrm{pair} = 8$； 圖 \ref{fig:normal_paired_test}a)。差值平均$\pm$標準差為$-0.65\pm0.665$  (圖 \ref{fig:normal_paired_test}b)。由Shapiro-Wilk test檢驗差值之常態性發現不能拒絕常態之虚無假設 ($W = 0.883$，$p = 0.202$)，故以two-sample paired t-test檢驗$H_0: \mu_1 - \mu_2 \geq 0.1$。結果指出，應拒絕虚無假設 ($t = -3.188$，$\text{DF} = 7$，$p = 0.015$)。此外，差值平均之95\%信賴區間為$\left[-1.206, -0.0936\right]$，且Cohen $D = 1.728$顯示高度效果量。結論是：差值平均顯著小於0且差距之效果量甚高。
+結果指出，$x_1$與$x_2$之平均$\pm$標準差分別為$9.71 \pm 1.095$及$10.36 \pm 1.344$ ($n_\mathrm{pair} = 8$； 圖 \ref{fig:normal_paired_test}a)。差值平均$\pm$標準差為$-0.65\pm0.665$  (圖 \ref{fig:normal_paired_test}b)。由Shapiro-Wilk test檢驗差值之常態性發現不能拒絕常態之虚無假設 ($W = 0.883$，$P = 0.202$)，故以two-sample paired t-test檢驗$H_0: \mu_1 - \mu_2 \geq 0.1$。結果指出，應拒絕虚無假設 ($T = -3.188$，$\text{DF} = 7$，$P = 0.015$)。此外，差值平均之95\%信賴區間為$\left[-1.206, -0.0936\right]$，且Cohen's $D = 1.728$顯示高度效果量。結論是：差值平均顯著小於0且差距之效果量甚高。
 
 \begin{figure}[htb!]
 	\centering
@@ -163,7 +165,7 @@ x_2 & 5.6 & 6.2 & 6.6 & 6.7 & 6.7 & 5.8 & 4.8 & 8.1
 \]
 之差值 ($x_1 - x_2$) 中央趨勢是否顯著偏離1。
 
-結果指出，$x_1$與$x_2$之平均$\pm$標準差分別為$6.538 \pm 0.924$及$6.313 \pm 0.975$ ($n_\mathrm{pair} = 8$；圖 \ref{fig:non-normal_paired_test}a)。差值平均$\pm$標準差為$0.225\pm0.501$ (圖 \ref{fig:non-normal_paired_test}b)。由Shapiro-Wilk test檢驗差值之常態性，結果顯示應拒絕常態之虚無假設 ($W = 0.797$，$p = 0.026$)，故以Wilcoxon signed rank sum test進行檢驗$H_0: \text{差值中位數}=1$。結果顯示，差值中位數顯著不等於1 ($V = 0$，$p = 0.014$) 而是小於1。此外，100\% 的樣本差值小於1，具極高的效果量。結論是，差值母體中位數顯著小於1且效果量高。
+結果指出，$x_1$與$x_2$之平均$\pm$標準差分別為$6.538 \pm 0.924$及$6.313 \pm 0.975$ ($n_\mathrm{pair} = 8$；圖 \ref{fig:non-normal_paired_test}a)。差值平均$\pm$標準差為$0.225\pm0.501$ (圖 \ref{fig:non-normal_paired_test}b)。由Shapiro-Wilk test檢驗差值之常態性，結果顯示應拒絕常態之虚無假設 ($W = 0.797$，$P = 0.026$)，故以Wilcoxon signed rank sum test進行檢驗$H_0: \text{差值中位數}=1$。結果顯示，差值中位數顯著不等於1 ($V = 0$，$P = 0.014$) 而是小於1。此外，100\% 的樣本差值小於1，具極高的效果量。結論是，差值母體中位數顯著小於1且效果量高。
 
 \begin{figure}[htb!]
 	\centering
@@ -183,7 +185,7 @@ x_2 & 9.7 & 8.8 & 9.2 & 10.2 & 9.3 & 7.6 & 8.6
 \]
 之中央趨勢是否顯著偏離0。
 
-結果指出，$x_1$與$x_2$之平均$\pm$標準差分別為$10.02 \pm 1.095$及$9.057 \pm 0.836$ ($n_1 = 6$，$n_2 = 7$；圖 \ref{fig:normal_independent_test})。由Shapiro-Wilk test檢驗差值之常態性發現二樣本皆不能拒絕常態之虚無假設 ($x_1$，$W = 0.985$，$p = 0.975$；$x_2$，$W = 0.976$，$p = 0.938$)，故以Welch two-Sample t-test檢驗$H_0: \mu_1 - \mu_2 = 0$。結果指出不應拒絕虚無假設 ($t = 1.848$，$\text{DF} = 9.794$，$p = 0.095$)。此外，差值平均之95\%信賴區間為$\left[-0.201, 2.120\right]$，且Cohen $D = 1.044$顯示高度效果量。結論是二樣本平均無顯著差異，但效果量甚高，可能因樣本數不足而發生型二錯誤。
+結果指出，$x_1$與$x_2$之平均$\pm$標準差分別為$10.02 \pm 1.095$及$9.057 \pm 0.836$ ($n_1 = 6$，$n_2 = 7$；圖 \ref{fig:normal_independent_test})。由Shapiro-Wilk test檢驗差值之常態性發現二樣本皆不能拒絕常態之虚無假設 ($x_1$，$W = 0.985$，$P = 0.975$；$x_2$，$W = 0.976$，$P = 0.938$)，故以Welch two-Sample t-test檢驗$H_0: \mu_1 - \mu_2 = 0$。結果指出不應拒絕虚無假設 ($T = 1.848$，$\text{DF} = 9.794$，$P = 0.095$)。此外，差值平均之95\%信賴區間為$\left[-0.201, 2.120\right]$，且Cohen's $D = 1.044$顯示高度效果量。結論是二樣本平均無顯著差異，但效果量甚高，可能因樣本數不足而發生型二錯誤。
 
 \begin{figure}[htb!]
 	\centering
@@ -202,7 +204,7 @@ x_2 & 0.7 & 1.6 & 0.6 & 0.4 & 1.7 & 0.2 & 1.4 &
 \]
 之中央趨勢是否顯著偏離0。
 
-結果指出，$x_1$與$x_2$之平均$\pm$標準差分別為$0.5 \pm 0.396$及$0.943 \pm 0.611$ ($n_1 = 8$；$n_2=7$；圖 \ref{fig:non-normal_independent_test})。由Shapiro-Wilk test檢驗差值之常態性發現$x_1$拒絕常態之虚無假設 ($x_1$，$W = 0.794$，$p = 0.024$；$x_2$，$W = 0.890$，$p = 0.276$)，故以Mann-Whitney U test檢驗$H_0: \text{Median}_1 - \text{Median}_2 = 0$。結果指出不應拒絕虚無假設 ($W = 18.5$，$p = 0.292$)。此外，Cliff's $d=0.339$顯示中等程度效果量。結論是，二樣本之中位數無顯著差異，但效果量程中度，可能因樣本數不足而發生型二錯誤。
+結果指出，$x_1$與$x_2$之平均$\pm$標準差分別為$0.5 \pm 0.396$及$0.943 \pm 0.611$ ($n_1 = 8$；$n_2=7$；圖 \ref{fig:non-normal_independent_test})。由Shapiro-Wilk test檢驗差值之常態性發現$x_1$拒絕常態之虚無假設 ($x_1$，$W = 0.794$，$P = 0.024$；$x_2$，$W = 0.890$，$P = 0.276$)，故以Mann-Whitney U test檢驗$H_0: \text{Median}_1 - \text{Median}_2 = 0$。結果指出不應拒絕虚無假設 ($W = 18.5$，$P = 0.292$)。此外，Cliff's $d=0.339$顯示中等程度效果量。結論是，二樣本之中位數無顯著差異，但效果量程中度，可能因樣本數不足而發生型二錯誤。
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[]{non-normal_independent_test.pdf}
@@ -211,6 +213,7 @@ x_2 & 0.7 & 1.6 & 0.6 & 0.4 & 1.7 & 0.2 & 1.4 &
 \end{figure}
 
 \section{多樣本單因子均值檢驗}
+\label{sec:oneway}
 \subsection{常態且變方同質情況}
 檢驗以下三獨立樣本
 \[
@@ -222,7 +225,7 @@ x_3 & 7.65 & 6.64 & 7 & 5.57 & 5.84 & 8.48 & 7.07
 \]
 之中央趨勢是否相等。
 
-三樣本的描述性統計如表 \ref{table:oneway_ANOVA}。由於三組樣本分布並不顯著偏離常態 (Shapiro-Wilk test，$p_1 = 0.709$，$p_2 = 0.85$，$p_3 = 0.925$)，且變異數不顯著不等 (Bartlett test，$\chi^2 = 0.469$，$\text{DF} = 2$，$p = 0.791$)，故以one-way ANOVA檢驗$H_0:\mu_1 = \mu_2 = \mu_3$。結果顯示，$x$為顯著因子 ($f = 9.297$，$\text{DF} = (2, 15)$，$p = 0.0024$)，且$\eta^2$顯示有55.3\% 的變異量可由$x$因子解釋。接下來以Tukey's range test進行多重比較，結果顯示，$x_1$與$x_3$存在顯著差異，而$x_2$與另二組皆無顯著差異 (表 \ref{table:oneway_ANOVA_post}；圖 \ref{fig:oneway_ANOVA})。
+三樣本的描述性統計如表 \ref{table:oneway_ANOVA}。由於三組樣本分布並不顯著偏離常態 (Shapiro-Wilk test，$P_1 = 0.709$，$P_2 = 0.85$，$P_3 = 0.925$)，且變異數不顯著不等 (Bartlett test，$\chi^2 = 0.469$，$\text{DF} = 2$，$P = 0.791$)，故以one-way ANOVA檢驗$H_0:\mu_1 = \mu_2 = \mu_3$。結果顯示，$x$為顯著因子 ($F = 9.297$，$\text{DF} = [2, 15]$，$P = 0.0024$)，且$\eta^2$顯示有55.3\% 的變異量可由$x$因子解釋。接下來以Tukey's range test進行多重比較，結果顯示，$x_1$與$x_3$存在顯著差異，而$x_2$與另二組皆無顯著差異 (表 \ref{table:oneway_ANOVA_post}；圖 \ref{fig:oneway_ANOVA})。
 
 \begin{table}[htb!]
 	\topcaption{獨立三樣本的描述性統計。} 
@@ -244,7 +247,7 @@ x_3 & 7.65 & 6.64 & 7 & 5.57 & 5.84 & 8.48 & 7.07
 	\centering
 	\begin{tabular}{lrrrr}
 		\hline
-		Comparison & Estimate & 95\% CI lower & 95\% CI upper & $p_{\mathrm{adj}}$ \\ 
+		Comparison & Estimate & 95\% CI lower & 95\% CI upper & $P_{\mathrm{adj}}$ \\ 
 		\hline
 		$x_2-x_1$ & 0.917 & $-0.200$ & 2.034 & 0.117 \\ 
 		$x_3-x_1$ & 1.704 & 0.677 & 2.730 & 0.002 \\ 
@@ -272,7 +275,7 @@ x_3 & 7.12 & 7.4 & 8.19 & 3.66 & 3.78 & 11.9 & 6.87
 \]
 之中央趨勢是否相等。
 
-三樣本的描述性統計如表 \ref{table:Welch_ANOVA}。由於三組樣本分布並不顯著偏離常態 (Shapiro-Wilk test，$p_1 = 0.158$，$p_2 = 0.593$，$p_3 = 0.388$)，且變異數顯著不相等 (Bartlett test，$\chi^2 = 6.340$，$\text{DF} = 2$，$p = 0.042$)，故以Welch one-way ANOVA檢驗$H_0:\mu_1 = \mu_2 = \mu_3$。結果顯示，$x$為顯著因子 ($f = 8.248$，$\text{DF} = (2, 8.953)$，$p = 0.009$)，且$\eta^2$顯示有34.77\% 的變異量可由$x$因子解釋。接下來以Games-Howell method進行多重比較，結果顯示，$x_1$與$x_3$存在顯著差異，而$x_2$與另二組皆無顯著差異 (表 \ref{table:Welch_ANOVA_post}；圖 \ref{fig:Welch_ANOVA})。
+三樣本的描述性統計如表 \ref{table:Welch_ANOVA}。由於三組樣本分布並不顯著偏離常態 (Shapiro-Wilk test，$P_1 = 0.158$，$P_2 = 0.593$，$P_3 = 0.388$)，且變異數顯著不相等 (Bartlett test，$\chi^2 = 6.340$，$\text{DF} = 2$，$P = 0.042$)，故以Welch one-way ANOVA檢驗$H_0:\mu_1 = \mu_2 = \mu_3$。結果顯示，$x$為顯著因子 ($F = 8.248$，$\text{DF} = (2, 8.953)$，$P = 0.009$) 即三組母體平均不全相等，且$\eta^2$顯示有34.77\% 的變異量可由$x$因子解釋。接下來以Games-Howell method進行多重比較，結果顯示，$x_1$與$x_3$存在顯著差異，而$x_2$與另二組皆無顯著差異 (表 \ref{table:Welch_ANOVA_post}；圖 \ref{fig:Welch_ANOVA})。
 
 \begin{table}[htb!]
 	\topcaption{獨立三樣本的描述性統計。} 
@@ -294,7 +297,7 @@ x_3 & 7.12 & 7.4 & 8.19 & 3.66 & 3.78 & 11.9 & 6.87
 	\centering
 	\begin{tabular}{lrrrrr}
 		\hline
-		Comparison & Estimate & 95\% CI & $t$ & DF & $p_{\mathrm{adj}}$ \\ 
+		Comparison & Estimate & 95\% CI & $T$ & DF & $P_{\mathrm{adj}}$ \\ 
 		\hline
 		$x_2-x_1$ & 2.523 & $\left[0.536 , 4.509\right]$ & 3.727 & 7.103 & 0.017 \\ 
 		$x_3-x_1$ & 2.915 & $\left[-0.345 , 6.175\right]$ & 2.598 & 7.420 & 0.077 \\ 
@@ -322,7 +325,7 @@ x_3 & 0.5 & 2 & 0.8 & 0.3 & 0.4 & 0.4 & &
 \]
 之中央趨勢是否相等。
 
-三樣本的描述性統計如表 \ref{table:rank_oneway}。由於$x_1$與$x_3$分布顯著偏離常態 (Shapiro-Wilk test，$p_1 = 0.014$，$p_2 = 0.577$，$p_3 = 0.008$)，故以Kruskal-Wallis rank sum test檢驗$H_0:\text{中位數}_1 = \text{中位數}_2 = \text{中位數}_3$。結果顯示，$x$為顯著因子 ($\chi^2 = 9.041$，$\text{DF} = 2$，$p = 0.011$)，且$\eta^2 = 0.391$顯示高度效果量。Dunn's Kruskal-Wallis multiple comparisons之多重比較結果顯示，$x_1$與$x_3$存在顯著差異，而$x_2$與另二組皆無顯著差異 (表 \ref{table:rank_oneway_post}；圖 \ref{fig:rank_oneway})。
+三樣本的描述性統計如表 \ref{table:rank_oneway}。由於$x_1$與$x_3$分布顯著偏離常態 (Shapiro-Wilk test，$P_1 = 0.014$，$P_2 = 0.577$，$P_3 = 0.008$)，故以Kruskal-Wallis rank sum test檢驗$H_0:\text{中位數}_1 = \text{中位數}_2 = \text{中位數}_3$。結果顯示，$x$為顯著因子 ($\chi^2 = 9.041$，$\text{DF} = 2$，$P = 0.011$)，且$\eta^2 = 0.391$顯示高度效果量。Dunn's Kruskal-Wallis multiple comparisons之多重比較結果顯示，$x_1$與$x_3$存在顯著差異，而$x_2$與另二組皆無顯著差異 (表 \ref{table:rank_oneway_post}；圖 \ref{fig:rank_oneway})。
 
 \begin{table}[htb!]
 	\topcaption{獨立三樣本的描述性統計。} 
@@ -344,7 +347,7 @@ x_3 & 0.5 & 2 & 0.8 & 0.3 & 0.4 & 0.4 & &
 	\centering
 	\begin{tabular}{lrr}
 		\hline
-		Comparison & $z$ & $p_{\mathrm{adj}}$ \\ 
+		Comparison & $z$ & $P_{\mathrm{adj}}$ \\ 
 		\hline
 		$x_1 - x_2$ & 0.964 & 0.335 \\ 
 		$x_1 - x_3$ & 2.979 & 0.009 \\ 
@@ -361,8 +364,51 @@ x_3 & 0.5 & 2 & 0.8 & 0.3 & 0.4 & 0.4 & &
 	\label{fig:rank_oneway}
 \end{figure}
 
-\section{多樣本雙因子均值檢驗}
-(待撰)
+\section{多樣本多因子均值檢驗}
+
+\subsection{二因子交互作用因子實驗}
+完全隨機$3\times 2$雙因子之因子實驗結果如下，
+\begin{center}
+	\begin{tabular}{ccl}
+		因子$A$ & 因子$B$ & $Y$ \\
+		\hline
+		$A_1$ & $B_1$ & 4.7, 3.4, 4, 4.7\\
+		$A_1$ & $B_2$ & 3.8, 4.2, 5.1, 5.9\\
+		$A_1$ & $B_3$ & 6.7, 5.9, 6.7, 5.5, 5.9\\
+		$A_2$ & $B_1$ & 5.4, 4.4, 5.9, 6.6\\
+		$A_2$ & $B_2$ & 7.4, 8, 5.9, 6.8\\
+		$A_2$ & $B_3$ & 9.5, 9.5, 11, 10.3, 10\\
+	\end{tabular}
+\end{center}
+分析二因子或交互作用對$Y$中央趨勢之影響。
+
+各組平均及其信賴區間如圖 \ref{fig:twoway_ANOVA} 所示。Twoway ANOVA結果指出顯著的因子A與B之交互作用 ($P =0.006$；\ref{table:twowayANOVA})，故將二因子合併進行oneway ANOVA以估計簡單主效應。結果指出，六組間不全相等 ($F = 35.33$，$\text{DF} = [5,20]$，$P < 0.001$，$\eta^2=89.8\%$)。以Tukey's range test進行事後兩兩比較，結果指出，在$A$因子相同的情況下，$B_3$皆顯著高於$B_1$與$B_2$且$B_1$與$B_2$間沒有顯著差異；在$B_2$與$B_3$之內，$A_2$皆顯著高於$A_1$ (圖 \ref{fig:twoway_ANOVA})。上述二點即為$A\times B$交互作用顯著之原因。在模型診斷方面，六組皆無顯著偏離常態且變方無顯著差異，符合ANOVA及Tukey's range test之前題。\footnote{此例中的簡單主效應其實與第 \ref{sec:oneway} 節所述的單因子均值比較相同，可一併參考該節。}
+
+\begin{table}[htb!]
+	\topcaption{Twoway TYPE III ANOVA variance拆解。} 
+	\centering
+	\begin{tabular}{lrrrr}
+		\hline
+		& SS & DF & $F$ & $P$ \\ 
+		\hline
+		$A$ & 40.93 & 1 & 71.01 & < 0.001 \\ 
+		$B$ & 49.28 & 2 & 42.74 & < 0.001 \\ 
+		$A\times B$ & 7.56 & 2 & 6.56 & 0.006 \\ 
+		Residuals & 11.53 & 20 &  &  \\ 
+		\hline
+	\end{tabular}
+	\label{table:twowayANOVA}
+\end{table}
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[]{twoway_ANOVA.pdf}
+	\caption{雙因子之因子實驗於各組的觀測結果、平均及95\%信賴區間。上方字母為多重比較的分群結果；若任二組存在相同字母則表示不存在顯著差異，反則反之。下方數字表示各組之重覆數。}
+	\label{fig:twoway_ANOVA}
+\end{figure}
+
+\subsection{二因子無交互作用因子實驗}
+(todo)
 
 \section{簡單線性迴歸}
 以下樣本
@@ -374,7 +420,7 @@ y & 17 & 19.7 & 21.7 & 14.4 & 20 & 21.1 & 19.8 & 18.9
 \]
 中，$y$為應變數，$x$為自變數，建立$y = \beta_0 + \beta_1 x + \varepsilon$的簡單線性迴歸。
 
-簡單線性迴歸之結果如表 \ref{table:simple_regression} 及圖 \ref{fig:simple_regression}a。結果顯示，每$x$增加1單位使$y$平均顯著增加2.069單位，應拒絕$H_0: \beta_1 = 0$ (表 \ref{table:simple_regression}a)。就效果量而言，自變數可解釋$R^2 = 92.4\%$之變異量，屬高效果量。就迴歸診斷而言，殘差之Q-Q圖 (圖 \ref{fig:simple_regression}b) 顯示殘差呈輕微右偏態，Shapiro-Wilk test顯示殘差並未顯著偏離常態分布 ($W = 0.848$，$p=0.090$)，模型配適尚可。結論是，自變數顯著地增加應變數且效果明顯。
+簡單線性迴歸之結果如表 \ref{table:simple_regression} 及圖 \ref{fig:simple_regression}a。結果顯示，每$x$增加1單位使$y$平均顯著增加2.069單位，應拒絕$H_0: \beta_1 = 0$ (表 \ref{table:simple_regression}a)。就效果量而言，自變數可解釋$R^2 = 92.4\%$之變異量，屬高效果量。就迴歸診斷而言，殘差之Q-Q圖 (圖 \ref{fig:simple_regression}b) 顯示殘差呈輕微右偏態，Shapiro-Wilk test顯示殘差並未顯著偏離常態分布 ($W = 0.848$，$P=0.090$)，模型配適尚可。結論是，自變數顯著地增加應變數且效果明顯。
 
 \begin{table}[htb!]
 	\topcaption{簡單線性迴歸之結果。} 
@@ -382,7 +428,7 @@ y & 17 & 19.7 & 21.7 & 14.4 & 20 & 21.1 & 19.8 & 18.9
 	\small
 	\begin{tabular}{rrrrr}
 		\hline
-		Variable & Estimate $\pm$ Std.~Error & $t$ (DF = 6) & $p$ & 95\% CI \\ 
+		Variable & Estimate $\pm$ Std.~Error & $T$ (DF = 6) & $P$ & 95\% CI \\ 
 		\hline
 		Intercept & $-1.016\pm2.408$ & $-0.422$ & 0.688 & $\left[-6.909, 4.877\right]$ \\ 
 		$x$ & $2.069\pm0.247$ & 8.389 & $<0.001$ & $\left[1.465, 2.672\right]$ \\ 
@@ -410,7 +456,7 @@ x_2 & 17 & 19.7 & 21.7 & 14.4 & 20 & 21.1 & 19.8 & 18.9
 \]
 中，分析二變數之間的相關性。
 
-首先以Shapiro-Wilk multivariate normality test檢驗$x_1$與$x_2$是否偏離雙變量常態分布，結果顯示不能拒絕$H_0: x_1與x_2之母體聯合分配為常態$ ($W = 0.860$，$p = 0.120$)，故可計算Pearson correlation。結果指出，$r = 0.960$屬高度正相關且應拒絕$H_0:\rho=0$ (95\% CI = $\left[ 0.789, 0.993\right]$，$t = 8.389$，$\text{DF} = 6$，$p < 0.001$；圖 \ref{fig:simple_cor})。結論是，$x_1$與$x_2$間存在顯著的高度正向線性相關性。
+首先以Shapiro-Wilk multivariate normality test檢驗$x_1$與$x_2$是否偏離雙變量常態分布，結果顯示不能拒絕$H_0: x_1與x_2之母體聯合分配為常態$ ($W = 0.860$，$P = 0.120$)，故可計算Pearson correlation。結果指出，$r = 0.960$屬高度正相關且應拒絕$H_0:\rho=0$ (95\% CI = $\left[ 0.789, 0.993\right]$，$F = 8.389$，$\text{DF} = 6$，$P < 0.001$；圖 \ref{fig:simple_cor})。結論是，$x_1$與$x_2$間存在顯著的高度正向線性相關性。
 
 \begin{figure}[htb!]
 	\centering
@@ -429,7 +475,7 @@ x_2 & 0.3 & 0.2 & 4.4 & 2.7 & 0.1 & 1 & 0.3 & 0.5
 \]
 中，分析二變數之間的相關性。
 
-首先以Shapiro-Wilk multivariate normality test檢驗$x_1$與$x_2$是否偏離雙變量常態分布，結果顯示不能拒絕$H_0: x_1與x_2之母體聯合分配為常態$ ($W = 0.739$，$p = 0.006$)，故計算Spearman's rank correlation coefficient。結果指出，$r_\mathrm{s} = -0.241$屬低度負相關且無法拒絕$H_0:\rho_\mathrm{s}=0$ ($S = 104.24$，$p=0.565$；圖 \ref{fig:spearman_cor})。結論是，$x_1$與$x_2$間不存在顯著次序相關性。
+首先以Shapiro-Wilk multivariate normality test檢驗$x_1$與$x_2$是否偏離雙變量常態分布，結果顯示不能拒絕$H_0: x_1與x_2之母體聯合分配為常態$ ($W = 0.739$，$P = 0.006$)，故計算Spearman's rank correlation coefficient。結果指出，$r_\mathrm{s} = -0.241$屬低度負相關且無法拒絕$H_0:\rho_\mathrm{s}=0$ ($S = 104.24$，$P=0.565$；圖 \ref{fig:spearman_cor})。結論是，$x_1$與$x_2$間不存在顯著次序相關性。
 
 \begin{figure}[htb!]
 	\centering
@@ -441,7 +487,7 @@ x_2 & 0.3 & 0.2 & 4.4 & 2.7 & 0.1 & 1 & 0.3 & 0.5
 \section{卡方適合度檢驗}
 隨機抽樣40人，發現各血型次數為$\{\text{O} : \text{A} : \text{B} : \text{AB}\} = \{20:15:3:2\}$。檢驗$H_0: \pi_{\mathrm{O}} : \pi_{\mathrm{A}} : \pi_{\mathrm{B}} : \pi_{\mathrm{AB}} = 0.4:0.3:0.2:0.1$。
 
-四種血型的母體比例估計如表 \ref{table:chisq_goodness}。卡方適合度檢驗結果指出$\chi^2 = 5.875$ (DF = 3)。由於血型B和AB之期望值極低 ($<1$)，故採用4,999次permutation得$p = 0.112$而不能拒絕$H_0$。
+四種血型的母體比例估計如表 \ref{table:chisq_goodness}。卡方適合度檢驗結果指出$\chi^2 = 5.875$ (DF = 3)。由於血型B和AB之期望值極低 ($<1$)，故採用4,999次permutation得$P = 0.112$而不能拒絕$H_0$。
 
 \begin{table}[htb!]
 	\topcaption{血型頻率與比例估計。} 
@@ -467,7 +513,7 @@ x_2 & 0.3 & 0.2 & 4.4 & 2.7 & 0.1 & 1 & 0.3 & 0.5
 %\end{figure}
 
 \section{卡方獨立性檢驗}
-隨機抽樣332人，發現居住地與收入分級的次數為
+隨機抽樣350人，發現居住地與收入分級的次數為
 \[
 	\begin{matrix}
 		                & &\text{income} &  \\
@@ -479,7 +525,7 @@ x_2 & 0.3 & 0.2 & 4.4 & 2.7 & 0.1 & 1 & 0.3 & 0.5
 \]
 試檢驗居住地與收入分級獨立$H_0: \pi_{ij} = \pi_i\pi_j$。
 
-居住地與收入的邊際比例如圖 \ref{fig:chisq_independent}。卡方適合度檢驗結果指出應拒絕$H_0$表示居住地與收入並不獨立而存在關聯性($\chi^2 = 30.849$，$\text{DF} = 4$，$p < 0.001$)。Cohen's W = 0.297顯示居住地與收入之關聯性幾乎達到中等程度 (0.3即達中度關聯)。若以居住地為多重比較的目標因子，再以卡方適合度比較居住地間比例並以Holm-Bonferroni method控制整體型一錯誤率，結果顯示居住地A顯著不同於居住地B及居住地C但B與C間無顯著差異 (圖 \ref{fig:chisq_independent}a)。綜合上述，居住地與收入並不獨立而存在顯著關聯性，主要由居住地A與另外二地點的差異 (若以居住地為比較對象) 造成。
+居住地與收入的邊際比例如圖 \ref{fig:chisq_independent}。卡方適合度檢驗結果指出應拒絕$H_0$表示居住地與收入並不獨立而存在關聯性($\chi^2 = 30.849$，$\text{DF} = 4$，$P < 0.001$)。Cohen's $W = 0.297$顯示居住地與收入之關聯性幾乎達到中等程度 (0.3即達中度關聯)。若以居住地為多重比較的目標因子，再以卡方適合度比較居住地間比例並以Holm-Bonferroni method控制整體型一錯誤率，結果顯示居住地A顯著不同於居住地B及居住地C但B與C間無顯著差異 (圖 \ref{fig:chisq_independent}a)。綜合上述，居住地與收入並不獨立而存在顯著關聯性，主要由居住地A與另外二地點的差異 (若以居住地為比較對象) 造成。
 
 \begin{figure}[htb!]
 	\centering
@@ -494,6 +540,6 @@ x_2 & 0.3 & 0.2 & 4.4 & 2.7 & 0.1 & 1 & 0.3 & 0.5
 \appendix
 \section{R code}
 以下為本文中所有產生資料、進行分析、製作表格與繪圖之R code，亦可至 \url{https://github.com/chenpanliao/report-statistical-results-TC/blob/master/plot/report-results.R} 下載。
-\VerbatimInput[fontsize=\footnotesize, baselinestretch=0.769, formatcom=\xeCJKVerbAddon, numbers=left, numbersep=2mm, framesep=3mm, frame=leftline]{plot/report-results.R}
+\VerbatimInput[fontsize=\footnotesize, baselinestretch=1, formatcom=\xeCJKVerbAddon, numbers=left, numbersep=1mm, framesep=3mm, frame=leftline]{plot/report-results.R}
 
 \end{document}
