@@ -7,7 +7,7 @@
 \usepackage{fancyvrb}
 \usepackage{topcapt}
 %\usepackage{fancyref, marvosym, textcomp, layout, amsmath, amssymb}
-\usepackage[b5paper, textwidth={34em}, vmargin={1.5cm}, nohead, includeheadfoot]{geometry}
+\usepackage[b5paper, textwidth={30em}, vmargin={1.7cm}, nohead, includeheadfoot]{geometry}
 
 \usepackage{titletoc}
 \contentsmargin{0pt}
@@ -67,7 +67,7 @@
 %% 西文字配置
 \usepackage{amsmath}
 \usepackage{microtype}
-\linespread{1.35}
+\linespread{1.2}
 \usepackage[no-math]{fontspec}
 \setmainfont[Mapping=tex-text]{STIX Two Text}%{Latin Modern Roman}
 %\setsansfont[Mapping=tex-text]{CMU Sans Serif}
@@ -86,12 +86,12 @@
   CJKecglue = {\hskip3pt plus 8pt minus 0pt},
   Verb = false]
 {xeCJK} 
-\setCJKmainfont[Scale=0.98, BoldFont={Noto Serif CJK JP Bold}]{Noto Serif CJK JP Medium}
+\setCJKmainfont[Scale=0.95, BoldFont={Noto Serif CJK JP Bold}]{Noto Serif CJK JP Medium}
 %\setCJKsansfont[Scale=0.97, BoldFont={}]{Sarasa Gothic CL}
 \setCJKmonofont[Scale=MatchUppercase]{Sarasa Term CL Light} 
 \newcommand{\nbs}{\hskip3pt plus 1pt minus 0pt}
 
-%\usepackage[small, compact]{titlesec}
+%\usepackage[small]{titlesec}
 %\usepackage{titlesec}
 %\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
 %\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{}
@@ -529,7 +529,7 @@ x_2 & 0.3 & 0.2 & 4.4 & 2.7 & 0.1 & 1 & 0.3 & 0.5
 
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[]{chisq_independent.pdf}
+	\includegraphics[width=\textwidth]{chisq_independent.pdf}
 	\caption{按居住地 (a) 與收入 (b) 的邊際比例。柱上方的數字表示該居住地或收入的樣本數。柱上方的小寫字母表示居住地間多重比較之結果；若任二組存在相同字母則表示不存在顯著差異，反則反之。}
 	\label{fig:chisq_independent}
 \end{figure}
