@@ -11,6 +11,31 @@ library(car)
 library(FSA)
 library(rstatix)
 library(rcompanion)
+library(effsize)
+sessionInfo()
+# R version 3.6.1 (2019-07-05)
+# Platform: x86_64-w64-mingw32/x64 (64-bit)
+# Running under: Windows 10 x64 (build 17763)
+# 
+# Matrix products: default
+# 
+# locale:
+# [1] LC_COLLATE=English_United States.1252  LC_CTYPE=English_United States.1252   
+# [3] LC_MONETARY=English_United States.1252 LC_NUMERIC=C                          
+# [5] LC_TIME=English_United States.1252    
+# 
+# attached base packages:
+# [1] stats     graphics  grDevices utils     datasets  methods   base     
+# 
+# other attached packages:
+#  [1] effsize_0.7.6             rcompanion_2.3.7          rstatix_0.3.0            
+#  [4] FSA_0.8.26                car_3.0-5                 carData_3.0-3            
+#  [7] mvnormtest_0.1-9          userfriendlyscience_0.7.2 xtable_1.8-4             
+# [10] multcompView_0.1-7        multcomp_1.4-10           TH.data_1.0-10           
+# [13] MASS_7.3-51.4             mvtnorm_1.0-11            data.table_1.12.6        
+# [16] ggpubr_0.2.4              magrittr_1.5              ggplot2_3.2.1            
+# [19] coin_1.3-1                survival_3.1-7            lsr_0.5                  
+
 
 ## normal one-sample test
 set.seed(1234)
@@ -185,7 +210,7 @@ d.plot <-
     observation = c(x1, x2),
     group = c(rep("x1", 6), rep("x2", 7))
   )
-windows(4, 2.0)
+windows(2, 2.0)
 ggplot(d.plot, aes(group, observation)) +
   geom_boxplot(width = 0.2,
                outlier.shape = NA) +
@@ -206,13 +231,13 @@ mean(x1)
 sd(x1)
 mean(x2)
 sd(x2)
-windows(4, 2.0)
+cliff.delta(x1, x2)
 d.plot <-
   data.table(
     observation = c(x1, x2),
     group = c(rep("x1", 8), rep("x2", 7))
   )
-windows(4, 2.0)
+windows(2, 2.0)
 ggplot(d.plot, aes(group, observation)) +
   geom_boxplot(width = 0.2,
                outlier.shape = NA) +
@@ -242,8 +267,15 @@ d[, .(Mean = mean(y),
   )
 fit <- aov(y ~ group, d)
 summary(fit)
-TukeyHSD(fit, "group")$group
-TukeyHSD(fit, "group")$group %>%
+cohens_d(d, y ~ group, var.equal = T) %>%
+  as.data.table %>%
+  .[, comparison := paste0(group2, "-", group1)] %>%
+  .[, .(comparison, effsize)] %>%
+  merge(.,
+        TukeyHSD(fit, "group")$group %>% 
+          as.data.table(keep.rownames = "comparison"),
+        by = "comparison") %T>%
+  print %>%
   xtable(
     digits = 3,
     auto = T,
@@ -256,7 +288,7 @@ fit.mult <-
   .$Letters %>%
   data.table(group = names(.), rank = .) %>%
   merge(., d[, .(max.val = max(y)), by = group], by = "group")
-windows(4, 2.0)
+windows(2.5, 2.0)
 ggplot(d, aes(group, y)) +
   geom_boxplot(width = 0.2,
                outlier.shape = NA) +
@@ -283,7 +315,7 @@ d[, paste0(y, collapse = " & "), by = group]
 d[, .(Mean = mean(y),
       SD = sd(y),
       n = length(y)), by = group] %>%
-  as.data.frame %>%
+  as.data.table %>%
   xtable(
     .,
     digits = 3,
@@ -293,8 +325,16 @@ d[, .(Mean = mean(y),
   )
 aov(y ~ group, data = d) %>% summary
 oneway.test(y ~ group, data = d)
-mc <- posthocTGH(d$y, d$group, digits = 3)$output$games.howell
-mc %>%
+cohens_d(d, y ~ group, var.equal = F) %>%
+  as.data.table %>%
+  .[, comparison := paste0(group2, "-", group1)] %>%
+  .[, .(comparison, effsize)] %>%
+  merge(
+    .,
+    posthocTGH(d$y, d$group, digits = 3)$output$games.howell %>% 
+      as.data.table(keep.rownames = "comparison")
+  ) %T>%
+  print %>%
   xtable(
     digits = 3,
     auto = T,
@@ -308,7 +348,7 @@ fit.mult <-
   .$Letters %>%
   data.table(group = names(.), rank = .) %>%
   merge(., d[, .(max.val = max(y)), by = group], by = "group")
-windows(4, 2.0)
+windows(2.5, 2.0)
 ggplot(d, aes(group, y)) +
   geom_boxplot(width = 0.2,
                outlier.shape = NA) +
@@ -340,8 +380,14 @@ d[, .(Mean = mean(y),
   )
 kruskal.test(y ~ group, d)
 kruskal_effsize(d, y ~ group)
-dunnTest(y ~ group, d)
-dunnTest(y ~ group, d)$res %>%
+combn(d$group %>% unique, 2) %>%
+  apply(., 2, function(x){
+    cliff.delta(y ~ group, d[group == x[1] | group == x[2]])$estimate
+  }) %>%
+  data.table(`Cliff's d` = .) %>%
+  .[, Comparison := combn(d$group %>% unique, 2, paste0, collapse = " - ")] %>% 
+  merge(., dunnTest(y ~ group, d)$res %>% as.data.table, by = "Comparison") %T>% 
+  print %>%
   xtable(caption = "Dunn's Kruskal-Wallis多重比較之結果。",
          label = "table:rank_oneway_post",
          digits = 3)
@@ -352,7 +398,7 @@ fit.mult <-
   .$Letters %>%
   data.table(group = names(.), rank = .) %>%
   merge(., d[, .(max.val = max(y)), by = group], by = "group")
-windows(4, 2.0)
+windows(2.5, 2.0)
 ggplot(d, aes(group, y)) +
   geom_boxplot(width = 0.2,
                outlier.shape = NA) +
@@ -483,15 +529,25 @@ f1 <-
   ) +
   theme_pubr(10, border = T)
 f2 <-
+  fortify(fit) %>%
+  .[order(.$.fitted)] %>%
+  ggplot(., aes(.fitted, scale(.resid))) +
+  geom_point() +
+  geom_smooth(se = F) +
+  xlab("fitted") +
+  ylab("standardized\nresidual") +
+  theme_pubr(10, border = T)
+f3 <-
   ggplot(d, aes(sample = fit$residuals)) +
   stat_qq() + 
   stat_qq_line() +
   theme_pubr(10, border = T)
-windows(5, 2.5)
+windows(3.5, 5.5)
 ggarrange(
   f1,
   f2,
-  nrow = 1,
+  f3,
+  nrow = 3,
   labels = "auto",
   align = "hv",
   widths = c(1, 1)
@@ -509,7 +565,7 @@ d[, paste0(x2, collapse = " & ")]
 mshapiro.test(d %>% as.matrix %>% t)
 cor.test(d$x1, d$x2)
 fit <- lm(x2 ~ x1, d)
-windows(4, 2.0)
+windows(3, 2.0)
 ggplot(d, aes(x1, x2)) +
   geom_path(data =
               dataEllipse(
@@ -542,7 +598,7 @@ mshapiro.test(d %>% as.matrix %>% t)
 d[, paste0(x1, collapse = " & ")]
 d[, paste0(x2, collapse = " & ")]
 cor.test(d$x1, d$x2, method = "spearman")
-windows(4, 2.0)
+windows(3, 2.0)
 ggplot(d, aes(x1, x2)) +
   geom_point() +
   annotate(
@@ -563,7 +619,8 @@ d <-
   data.table(observation = obs.val,
              expectation = exp.p * sum(obs.val),
              blood = c("O", "A", "B", "AB")) %>%
-  melt(measure.vars = c("observation", "expectation"), value.name = "frequency") %>%
+  melt(measure.vars = c("observation", "expectation"),
+       value.name = "frequency") %>%
   .[, proportion := frequency / sum(frequency), by = variable] %T>% 
   print
 glm(
