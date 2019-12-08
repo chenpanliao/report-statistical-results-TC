@@ -8,7 +8,7 @@
 \usepackage{fancyvrb}
 \usepackage{topcapt}
 %\usepackage{fancyref, marvosym, textcomp, layout, amsmath, amssymb}
-\usepackage[b5paper, textwidth={34em}, vmargin={1.2cm}, nohead, includeheadfoot]{geometry}
+\usepackage[b5paper, textwidth={33em}, vmargin={1.5cm}, nohead, includeheadfoot]{geometry}
 
 
 \usepackage{layout}
@@ -74,7 +74,7 @@
 %% 西文字配置
 \usepackage{amsmath}
 \usepackage{microtype}
-\linespread{1.3}
+\linespread{1.25}
 %\usepackage[no-math]{fontspec}
 \usepackage{fontspec}
 \setmainfont[Mapping=tex-text]{TeX Gyre Schola}%{STIX Two Text}%{Latin Modern Roman}
@@ -93,7 +93,7 @@
   PunctStyle={quanjiao},
   CheckSingle=true, 
   CJKglue = {\hskip0pt plus 3pt minus 0pt},
-  CJKecglue = {\hskip0.2em plus 1em},
+  CJKecglue = {\hskip0.3em plus 1.2em},
   Verb = false]
 {xeCJK} 
 \setCJKmainfont[Scale=1, BoldFont={Noto Serif CJK JP Bold}]{Noto Serif CJK JP Medium}
@@ -509,7 +509,7 @@ x_2 & 0.3 & 0.2 & 4.4 & 2.7 & 0.1 & 1 & 0.3 & 0.5
 \]
 中，分析二變數之間的相關性。
 
-首先以Shapiro-Wilk multivariate normality test檢驗$x_1$與$x_2$是否偏離雙變量常態分布，結果顯示不能拒絕$H_0: x_1與x_2之母體聯合分配為常態$ ($W = 0.739$，$P = 0.006$)，故計算Spearman's rank correlation coefficient。結果指出，$r_\mathrm{s} = -0.241$屬低度負相關且無法拒絕$H_0:\rho_\mathrm{s}=0$ ($S = 104.24$，$P=0.565$；\figref{fig:spearman_cor})。結論是，$x_1$與$x_2$間不存在顯著次序相關性。
+首先以Shapiro-Wilk multivariate normality test檢驗$x_1$與$x_2$是否偏離雙變量常態分布，結果顯示應拒絕$H_0: x_1與x_2之母體聯合分配為常態$ ($W = 0.739$，$P = 0.006$)，故計算Spearman's rank correlation coefficient。結果指出，$r_\mathrm{s} = -0.241$屬低度負相關且無法拒絕$H_0:\rho_\mathrm{s}=0$ ($S = 104.24$，$P=0.565$；\figref{fig:spearman_cor})。結論是，$x_1$與$x_2$間不存在顯著次序相關性。
 
 \begin{figure}[htbp]
 	\centering
@@ -569,12 +569,12 @@ x_2 & 0.3 & 0.2 & 4.4 & 2.7 & 0.1 & 1 & 0.3 & 0.5
 \end{figure}
 
 
-\clearpage!
+%\clearpage
 %\onecolumn
 \appendix
 \section{R code}
 以下為本文中所有產生資料、進行分析、製作表格與繪圖之R code，亦可至\nbs{}\href{https://github.com/chenpanliao/report-statistical-results-TC/blob/master/plot/report-results.R}{Github}\nbs{}下載。\footnote{\url{https://github.com/chenpanliao/report-statisti!cal-results-TC/blob/master/plot/report-results.R}。}
 %\VerbatimInput[fontsize=\small, baselinestretch=1, formatcom=\xeCJKVerbAddon, numbers=left, numbersep=1mm, framesep=2mm, frame=leftline, stepnumber=5]{plot/report-results.R}
-\inputminted[linenos=true, baselinestretch=1, fontsize=\small, formatcom=\xeCJKVerbAddon, numbers=left, numbersep=1mm, framesep=2mm, frame=leftline, stepnumber=5]{R}{plot/report-results.R}
+\inputminted[linenos=true, baselinestretch=1, fontsize=\footnotesize, formatcom=\xeCJKVerbAddon, numbers=left, numbersep=1mm, framesep=2mm, frame=leftline, stepnumber=5]{R}{plot/report-results.R}
 
 \end{document}
